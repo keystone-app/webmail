@@ -30,6 +30,23 @@ class LoginController extends Controller
     }
 
     /**
+     * Show the login form.
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm(Request $request)
+    {
+        return view('app', [
+            'props' => [
+                'csrfToken' => csrf_token(),
+                'errors' => $request->session()->get('errors') ? $request->session()->get('errors')->getBag('default')->first('email') : null,
+                'old' => $request->session()->getOldInput(),
+            ]
+        ]);
+    }
+
+    /**
      * Handle an authentication attempt.
      *
      * @param Request $request

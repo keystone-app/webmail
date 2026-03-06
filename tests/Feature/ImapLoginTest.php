@@ -12,6 +12,15 @@ class ImapLoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_login_form_can_be_rendered(): void
+    {
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('app');
+        $response->assertViewHas('props');
+    }
+
     public function test_successful_imap_login_creates_user_and_logs_them_in(): void
     {
         $email = 'user@example.com';
