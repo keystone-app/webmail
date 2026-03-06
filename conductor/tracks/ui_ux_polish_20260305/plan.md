@@ -10,12 +10,12 @@
 - [ ] Task: Conductor - User Manual Verification 'Authentication UI and App Shell Polish' (Protocol in workflow.md)
 
 ## Phase 2: Email List and Contextual Actions
-- [ ] Task: Implement Loading Skeletons
-    - [ ] Write failing tests for loading state display.
-    - [ ] Create `EmailSkeleton.svelte` and integrate into `EmailList.svelte`.
-- [ ] Task: Enhance Email List items and actions
-    - [ ] Write failing tests for hover actions and high-contrast typography.
-    - [ ] Update `EmailList.svelte` with improved row design and contextual buttons (Archive/Delete placeholder).
+- [x] Task: Implement Loading Skeletons 00e2667
+    - [x] Write failing tests for loading state display.
+    - [x] Create `EmailSkeleton.svelte` and integrate into `EmailList.svelte`.
+- [x] Task: Enhance Email List items and actions af1cf31
+    - [x] Write failing tests for hover actions and high-contrast typography.
+    - [x] Update `EmailList.svelte` with improved row design and contextual buttons (Archive/Delete placeholder).
 - [ ] Task: Conductor - User Manual Verification 'Email List and Contextual Actions' (Protocol in workflow.md)
 
 ## Phase 3: Message View and UX Patterns
