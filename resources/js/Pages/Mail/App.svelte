@@ -5,13 +5,16 @@
     import ReadingPane from '../../Components/Mail/ReadingPane.svelte';
     import { onMount } from 'svelte';
 
-    let { user } = $props();
+    let { user, emails: initialEmails = [] } = $props();
     
     let activeFolder = $state('Inbox');
-    let emails = $state([]);
-    let selectedEmail = $state(null);
+    let emails = $state(initialEmails);
+    let selectedEmailId = $state(null);
     let isModalOpen = $state(false);
     let isLoading = $state(false);
+
+    // Derived selected email object
+    const selectedEmail = $derived(emails.find(e => e.id === selectedEmailId) || null);
 
     // Fetch emails from the API
     async function fetchEmails(folder = 'Inbox') {
@@ -31,14 +34,17 @@
         try {
             const response = await fetch(`/api/emails/${id}`);
             const result = await response.json();
-            selectedEmail = result.data;
+            // Update the email object in the list with the full body
+            emails = emails.map(e => e.id === id ? { ...e, ...result.data } : e);
         } catch (error) {
             console.error('Failed to fetch email details:', error);
         }
     }
 
     onMount(() => {
-        fetchEmails(activeFolder);
+        if (emails.length === 0) {
+            fetchEmails(activeFolder);
+        }
     });
 
     // Re-fetch when activeFolder changes
@@ -58,10 +64,40 @@
 
     function closeModal() {
         isModalOpen = false;
-        // Optional: clear selected email when closing
-        // selectedEmail = null;
+    }
+
+    // Keyboard Shortcuts
+    function handleKeydown(event) {
+        if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
+
+        if (isModalOpen) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+            return;
+        }
+
+        if (emails.length === 0) return;
+
+        if (event.key === 'j') {
+            const currentIndex = emails.findIndex(e => e.id === selectedEmailId);
+            if (currentIndex < emails.length - 1) {
+                selectedEmailId = emails[currentIndex + 1].id;
+            } else if (selectedEmailId === null) {
+                selectedEmailId = emails[0].id;
+            }
+        } else if (event.key === 'k') {
+            const currentIndex = emails.findIndex(e => e.id === selectedEmailId);
+            if (currentIndex > 0) {
+                selectedEmailId = emails[currentIndex - 1].id;
+            }
+        } else if (event.key === 'Enter' && selectedEmailId) {
+            isModalOpen = true;
+        }
     }
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <div class="flex h-screen bg-gray-50 overflow-hidden">
     <Sidebar {user} bind:activeFolder />
@@ -71,7 +107,7 @@
 
         <div class="flex-1 flex overflow-hidden">
             <!-- Email List now takes full width -->
-            <EmailList {emails} bind:selectedEmail isFullWidth={true} {isLoading} />
+            <EmailList {emails} bind:selectedEmailId isFullWidth={true} {isLoading} />
         </div>
     </div>
 </div>
