@@ -6,10 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Email extends Model
 {
     /** @use HasFactory<\Database\Factories\EmailFactory> */
     use HasFactory;
+
+    /**
+     * Get the attachments for the email.
+     */
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(Attachment::class);
+    }
 
     /**
      * The attributes that are mass assignable.

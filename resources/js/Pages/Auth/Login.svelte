@@ -9,10 +9,10 @@
 </script>
 
 <div class="min-h-screen flex items-center justify-center bg-slate-50 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl border border-slate-100">
+    <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow-xl border border-slate-100">
         <div>
             <div class="flex justify-center">
-                <div class="bg-blue-700 p-3 rounded-xl shadow-lg shadow-blue-200">
+                <div class="bg-blue-700 p-3 rounded-lg shadow-blue-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
@@ -44,7 +44,7 @@
                             bind:value={email}
                             required 
                             placeholder="you@example.com"
-                            class="block w-full pl-10 pr-3 py-3 border {safeErrors.email ? 'border-red-500 ring-red-500' : 'border-slate-200 focus:ring-blue-600 focus:border-blue-600'} rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 transition-all text-gray-950"
+                            class="block w-full pl-10 pr-3 py-3 border {safeErrors.email ? 'border-red-500 ring-red-500' : 'border-slate-200 focus:ring-blue-600 focus:border-blue-600'} rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 transition-all text-gray-950"
                         >
                     </div>
                     {#if safeErrors.email}
@@ -72,7 +72,7 @@
                             bind:value={password}
                             required 
                             placeholder="••••••••"
-                            class="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all text-gray-950"
+                            class="block w-full pl-10 pr-3 py-3 border border-slate-200 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all text-gray-950"
                         >
                     </div>
                 </div>
@@ -81,7 +81,7 @@
             <div>
                 <button 
                     type="submit" 
-                    class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all shadow-lg shadow-blue-200"
+                    class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition-all shadow-lg shadow-blue-200"
                 >
                     Sign in
                 </button>

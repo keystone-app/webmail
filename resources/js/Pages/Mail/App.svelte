@@ -64,6 +64,7 @@
 
     function closeModal() {
         isModalOpen = false;
+        selectedEmailId = null;
     }
 
     // Keyboard Shortcuts
@@ -73,6 +74,16 @@
         if (isModalOpen) {
             if (event.key === 'Escape') {
                 closeModal();
+            } else if (event.key === 'j') {
+                const currentIndex = emails.findIndex(e => e.id === selectedEmailId);
+                if (currentIndex < emails.length - 1) {
+                    selectedEmailId = emails[currentIndex + 1].id;
+                }
+            } else if (event.key === 'k') {
+                const currentIndex = emails.findIndex(e => e.id === selectedEmailId);
+                if (currentIndex > 0) {
+                    selectedEmailId = emails[currentIndex - 1].id;
+                }
             }
             return;
         }
@@ -83,13 +94,16 @@
             const currentIndex = emails.findIndex(e => e.id === selectedEmailId);
             if (currentIndex < emails.length - 1) {
                 selectedEmailId = emails[currentIndex + 1].id;
+                isModalOpen = true;
             } else if (selectedEmailId === null) {
                 selectedEmailId = emails[0].id;
+                isModalOpen = true;
             }
         } else if (event.key === 'k') {
             const currentIndex = emails.findIndex(e => e.id === selectedEmailId);
             if (currentIndex > 0) {
                 selectedEmailId = emails[currentIndex - 1].id;
+                isModalOpen = true;
             }
         } else if (event.key === 'Enter' && selectedEmailId) {
             isModalOpen = true;
@@ -123,7 +137,7 @@
         ></button>
 
         <!-- Modal content with more polish -->
-        <div class="relative bg-white rounded-3xl shadow-2xl shadow-slate-950/20 w-full max-w-6xl h-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200">
+        <div class="relative bg-white rounded-lg shadow-2xl shadow-slate-950/20 w-full max-w-6xl h-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200">
             <div class="absolute top-6 right-6 z-20">
                 <button 
                     onclick={closeModal}

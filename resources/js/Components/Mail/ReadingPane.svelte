@@ -30,7 +30,7 @@
                 <div class="flex items-center space-x-2">
                     {#each actions as action}
                         <button 
-                            class="p-2.5 text-slate-500 hover:text-blue-700 hover:bg-blue-50 rounded-xl transition-all border border-transparent hover:border-blue-100" 
+                            class="p-2.5 text-slate-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all border border-transparent hover:border-blue-100" 
                             aria-label={action.name}
                             title={action.name}
                         >
@@ -43,10 +43,46 @@
             </div>
 
             <div class="prose prose-slate prose-lg max-w-none text-gray-900 leading-relaxed">
-                <div class="bg-slate-50/50 rounded-2xl p-6 sm:p-8 border border-slate-100">
+                <div class="bg-slate-50/50 rounded-lg p-6 sm:p-8 border border-slate-100">
                     {@html selectedEmail.body}
                 </div>
             </div>
+
+            {#if selectedEmail.attachments && selectedEmail.attachments.filter(a => !a.is_inline).length > 0}
+                <div class="mt-8">
+                    <h3 class="text-sm font-bold text-gray-950 uppercase tracking-wider mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 2 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                        </svg>
+                        Attachments ({selectedEmail.attachments.filter(a => !a.is_inline).length})
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {#each selectedEmail.attachments.filter(a => !a.is_inline) as attachment}
+                            <a 
+                                href={attachment.url} 
+                                class="flex items-center justify-between p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all group"
+                            >
+                                <div class="flex items-center overflow-hidden">
+                                    <div class="bg-slate-100 p-2 rounded-lg group-hover:bg-white transition-all shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 overflow-hidden">
+                                        <div class="text-sm font-bold text-gray-900 truncate">{attachment.filename}</div>
+                                        <div class="text-xs text-slate-500">{(attachment.size / 1024).toFixed(1)} KB</div>
+                                    </div>
+                                </div>
+                                <div class="opacity-0 group-hover:opacity-100 transition-opacity ml-2 shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                </div>
+                            </a>
+                        {/each}
+                    </div>
+                </div>
+            {/if}
             
             <div class="mt-12 pt-8 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-widest">
                 <span>Received on {selectedEmail.date}</span>

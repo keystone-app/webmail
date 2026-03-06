@@ -14,7 +14,7 @@ const mockEmails = [
 ];
 
 test('email list item has high-contrast sender name', () => {
-    render(EmailList, { emails: mockEmails, isLoading: false });
+    render(EmailList, { emails: mockEmails, isLoading: false, selectedEmailId: null });
     
     const sender = screen.getByText(/sender@example.com/i);
     expect(sender).toHaveClass('text-gray-950');
@@ -22,9 +22,8 @@ test('email list item has high-contrast sender name', () => {
 });
 
 test('email list item shows contextual actions', () => {
-    render(EmailList, { emails: mockEmails, isLoading: false });
+    render(EmailList, { emails: mockEmails, isLoading: false, selectedEmailId: null });
     
-    // Check for presence of action buttons (Archive/Delete placeholders)
     const archiveBtn = screen.getByLabelText(/Archive/i);
     const deleteBtn = screen.getByLabelText(/Delete/i);
     

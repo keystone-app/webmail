@@ -26,7 +26,7 @@
     <nav class="flex-1 p-4 space-y-1">
         {#each folders as folder}
             <button 
-                class="w-full text-left px-4 py-2.5 rounded-xl font-semibold transition-all flex items-center space-x-3 group {activeFolder === folder.name ? 'bg-blue-700 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}"
+                class="w-full text-left px-4 py-2.5 rounded-lg font-semibold transition-all flex items-center space-x-3 group {activeFolder === folder.name ? 'bg-blue-700 text-white shadow-lg shadow-blue-900/50' : 'hover:bg-slate-800 hover:text-white text-slate-400'}"
                 onclick={() => activeFolder = folder.name}
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {activeFolder === folder.name ? 'text-blue-200' : 'text-slate-500 group-hover:text-slate-300'}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

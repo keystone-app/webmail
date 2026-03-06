@@ -1,6 +1,6 @@
 <script>
     import EmailSkeleton from './EmailSkeleton.svelte';
-    let { emails = [], selectedEmail = $bindable(), isFullWidth = false, isLoading = false } = $props();
+    let { emails = [], selectedEmailId = $bindable(null), isFullWidth = false, isLoading = false } = $props();
 </script>
 
 <section class="{isFullWidth ? 'w-full' : 'w-full md:w-1/3 lg:w-1/4'} bg-white border-r border-slate-200 overflow-y-auto h-full">
@@ -18,10 +18,10 @@
     {:else}
         <div class="divide-y divide-slate-100">
             {#each emails as email}
-                <div class="group relative bg-white transition-all hover:bg-slate-50 {selectedEmail?.id === email.id ? 'bg-blue-50/50' : ''}">
+                <div class="group relative bg-white transition-all hover:bg-slate-50 {selectedEmailId === email.id ? 'bg-blue-50/50' : ''}">
                     <button 
-                        class="w-full p-5 text-left focus:outline-none border-l-4 {selectedEmail?.id === email.id ? 'border-blue-600' : 'border-transparent group-hover:border-slate-300'}"
-                        onclick={() => selectedEmail = email}
+                        class="w-full p-5 text-left focus:outline-none border-l-4 {selectedEmailId === email.id ? 'border-blue-600' : 'border-transparent group-hover:border-slate-300'}"
+                        onclick={() => selectedEmailId = email.id}
                     >
                         <div class="flex justify-between items-start mb-1.5">
                             <span class="font-bold text-gray-950 truncate pr-2 tracking-tight">{email.from}</span>
@@ -34,7 +34,7 @@
                     <!-- Contextual Actions -->
                     <div class="absolute right-4 bottom-4 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 backdrop-blur-sm p-1 rounded-lg shadow-sm border border-slate-100">
                         <button 
-                            class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all" 
+                            class="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all" 
                             aria-label="Archive"
                             title="Archive"
                             onclick={(e) => { e.stopPropagation(); console.log('Archive', email.id); }}
@@ -44,7 +44,7 @@
                             </svg>
                         </button>
                         <button 
-                            class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all" 
+                            class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all" 
                             aria-label="Delete"
                             title="Delete"
                             onclick={(e) => { e.stopPropagation(); console.log('Delete', email.id); }}
