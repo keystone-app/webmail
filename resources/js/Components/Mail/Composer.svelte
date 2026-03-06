@@ -15,12 +15,56 @@
     let showBcc = $state(false);
 
     let editor = $state();
+    let draftId = $state(null);
+    let lastSaved = $state(null);
+    let isSaving = $state(false);
+
+    async function saveDraft() {
+        if (!to && !subject && !body && !cc && !bcc) return;
+        
+        isSaving = true;
+        const url = draftId ? `/api/drafts/${draftId}` : '/api/drafts';
+        const method = draftId ? 'PUT' : 'POST';
+
+        try {
+            const response = await fetch(url, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': window.csrfToken || document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                },
+                body: JSON.stringify({ to, cc, bcc, subject, body })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                draftId = data.id;
+                lastSaved = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+        } catch (error) {
+            console.error('Failed to save draft:', error);
+        } finally {
+            isSaving = false;
+        }
+    }
+
+    // Debounced auto-save
+    let timeout;
+    $effect(() => {
+        // Track dependencies
+        const _deps = [to, cc, bcc, subject, body];
+        
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            saveDraft();
+        }, 2000);
+    });
 
     onMount(() => {
         editor = new Editor({
-            extensions: [
-                StarterKit,
-            ],
+            extensions: [StarterKit],
             content: '',
             editorProps: {
                 attributes: {
@@ -34,9 +78,8 @@
     });
 
     onDestroy(() => {
-        if (editor) {
-            editor.destroy();
-        }
+        clearTimeout(timeout);
+        if (editor) editor.destroy();
     });
 </script>
 
@@ -178,7 +221,11 @@
                 </button>
             </div>
             <div class="flex items-center space-x-3">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mr-4">Draft saved</span>
+                {#if isSaving}
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest animate-pulse mr-4">Saving...</span>
+                {:else if lastSaved}
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mr-4">Draft saved at {lastSaved}</span>
+                {/if}
                 <button 
                     class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg shadow-blue-900/20 transition-all active:scale-[0.98]"
                 >
