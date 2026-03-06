@@ -112,6 +112,38 @@ class ImapSyncJobTest extends TestCase
         $this->assertStringNotContainsString('cid:img123', $email->body);
     }
 
+    public function test_it_syncs_emails_from_custom_folder(): void
+    {
+        $user = User::factory()->create(['email' => 'user@example.com']);
+        $password = 'secret';
+        $customFolder = 'INBOX.enviadas';
+        
+        // Mock IMAP Client
+        $clientMock = Mockery::mock('Webklex\PHPIMAP\Client');
+        $clientMock->username = $user->email;
+        $clientMock->password = $password;
+
+        $folderMock = Mockery::mock('Webklex\PHPIMAP\Folder');
+        $folderMock->shouldReceive('query->all->get')->once()->andReturn(collect([
+            $this->mockMessage(201, 'Sent Subject', 'user@example.com', 'Sent body'),
+        ]));
+
+        $clientMock->shouldReceive('connect')->once()->andReturn($clientMock);
+        $clientMock->shouldReceive('getFolder')->with($customFolder)->once()->andReturn($folderMock);
+        
+        Client::shouldReceive('account')->with('default')->once()->andReturn($clientMock);
+
+        // Run Job with custom folder
+        ImapSyncJob::dispatchSync($user, $password, $customFolder);
+
+        // Assert Email is saved with correct folder name
+        $this->assertDatabaseHas('emails', [
+            'user_id' => $user->id,
+            'folder' => $customFolder,
+            'imap_uid' => 201,
+        ]);
+    }
+
     public function test_it_logs_error_on_sync_failure(): void
     {
         $user = User::factory()->create(['email' => 'user@example.com']);

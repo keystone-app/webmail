@@ -23,7 +23,8 @@ class ImapSyncJob implements ShouldQueue
      */
     public function __construct(
         public User $user,
-        public string $password
+        public string $password,
+        public string $folder = 'INBOX'
     ) {}
 
     /**
@@ -38,18 +39,18 @@ class ImapSyncJob implements ShouldQueue
             
             $client->connect();
 
-            $folder = $client->getFolder('INBOX');
+            $folder = $client->getFolder($this->folder);
             $messages = $folder->query()->all()->get();
 
             foreach ($messages as $message) {
-                Log::debug("Syncing email: UID={$message->uid}, Subject={$message->subject}, Seen={$message->getFlags()->has('seen')}");
+                Log::debug("Syncing email from folder {$this->folder}: UID={$message->uid}, Subject={$message->subject}, Seen={$message->getFlags()->has('seen')}");
                 
                 $body = $message->getHTMLBody() ?: $message->getTextBody();
 
                 $email = Email::updateOrCreate(
                     [
                         'user_id' => $this->user->id,
-                        'folder' => 'INBOX',
+                        'folder' => $this->folder,
                         'imap_uid' => $message->uid,
                     ],
                     [
