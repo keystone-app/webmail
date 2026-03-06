@@ -23,6 +23,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the drafts for the user.
+     */
+    public function drafts(): HasMany
+    {
+        return $this->hasMany(Draft::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
