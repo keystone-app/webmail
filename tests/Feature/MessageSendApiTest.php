@@ -11,6 +11,7 @@ use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Webklex\IMAP\Facades\Client;
+use Webklex\PHPIMAP\Support\FolderCollection;
 use Mockery;
 
 class MessageSendApiTest extends TestCase
@@ -29,9 +30,11 @@ class MessageSendApiTest extends TestCase
         
         $folderMock = Mockery::mock('Webklex\PHPIMAP\Folder');
         $folderMock->shouldReceive('appendMessage')->once();
+        $folderMock->path = 'INBOX.Sent';
 
         $clientMock->shouldReceive('connect')->once()->andReturn($clientMock);
-        $clientMock->shouldReceive('getFolder')->with('Sent')->once()->andReturn($folderMock);
+        $clientMock->shouldReceive('getFolders')->once()->andReturn(new FolderCollection(collect([$folderMock])));
+        $clientMock->shouldReceive('getFolderByPath')->with('INBOX.Sent')->once()->andReturn($folderMock);
         
         Client::shouldReceive('account')->with('default')->once()->andReturn($clientMock);
 
