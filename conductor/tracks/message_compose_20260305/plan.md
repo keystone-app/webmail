@@ -18,9 +18,9 @@
 - [x] Task: Create Composer Component ce9445f
     - [x] Create `resources/js/Components/Mail/Composer.svelte` modal component.
     - [x] Implement fields for To, CC (toggle), BCC (toggle), and Subject.
-- [ ] Task: Integrate Tiptap Editor
-    - [ ] Embed the rich text editor into the `Composer.svelte` component.
-    - [ ] Ensure formatting toolbar is functional.
+- [x] Task: Integrate Tiptap Editor 75aba14
+    - [x] Embed the rich text editor into the `Composer.svelte` component.
+    - [x] Ensure formatting toolbar is functional.
 - [ ] Task: Auto-save Draft Logic
     - [ ] Implement debounced auto-save logic to the `Api\DraftController`.
 - [ ] Task: Conductor - User Manual Verification 'Frontend Composer UI' (Protocol in workflow.md)
