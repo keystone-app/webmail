@@ -7,5 +7,5 @@
 
 ---
 
-- [~] **Track: Improve layout/design UI/UX**
+- [x] **Track: Improve layout/design UI/UX**
 *Link: [./tracks/ui_ux_polish_20260305/](./tracks/ui_ux_polish_20260305/)*
