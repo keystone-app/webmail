@@ -23,6 +23,7 @@
         if (!to && !subject && !body && !cc && !bcc) return;
         
         isSaving = true;
+        const startTime = Date.now();
         const url = draftId ? `/api/drafts/${draftId}` : '/api/drafts';
         const method = draftId ? 'PUT' : 'POST';
 
@@ -41,7 +42,14 @@
             if (response.ok) {
                 const data = await response.json();
                 draftId = data.id;
-                lastSaved = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                // Ensure indicator shows for at least 500ms
+                const elapsed = Date.now() - startTime;
+                if (elapsed < 500) {
+                    await new Promise(r => setTimeout(r, 500 - elapsed));
+                }
+                
+                lastSaved = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             }
         } catch (error) {
             console.error('Failed to save draft:', error);
