@@ -7,5 +7,5 @@
 
 ---
 
-- [~] **Track: Refactor IMAP sync job**
+- [x] **Track: Refactor IMAP sync job**
 *Link: [./tracks/refactor_imap_sync_20260306/](./tracks/refactor_imap_sync_20260306/)*
