@@ -10,9 +10,9 @@
 - [ ] Task: Conductor - User Manual Verification 'Environment Setup' (Protocol in workflow.md)
 
 ## Phase 2: Core Authentication Logic
-- [ ] Task: Create IMAP Auth Service
-    - [ ] Write failing unit tests for IMAP credential verification
-    - [ ] Implement IMAP authentication service using `webklex/laravel-imap`
+- [x] Task: Create IMAP Auth Service e75fcf4
+    - [x] Write failing unit tests for IMAP credential verification
+    - [x] Implement IMAP authentication service using `webklex/laravel-imap`
 - [ ] Task: User Persistence & Session
     - [ ] Write failing feature tests for user creation/update on login
     - [ ] Implement logic to find or create a local `User` record
