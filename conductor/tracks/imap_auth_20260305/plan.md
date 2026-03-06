@@ -22,7 +22,7 @@
     - [x] Implement logout logic and route
 - [ ] Task: Conductor - User Manual Verification 'Core Authentication Logic' (Protocol in workflow.md)
 
-## Phase 3: Frontend & Integration
+## Phase 3: Frontend & Integration [checkpoint: d2ed04b]
 - [x] Task: Create Login UI 05034ab
     - [x] Develop Svelte 5 login form with Tailwind CSS 4
     - [x] Implement form validation and display of authentication errors
