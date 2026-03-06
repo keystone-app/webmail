@@ -5,7 +5,7 @@
 - [x] Task: Refactor `ImapSyncJob` to support custom folders. [1967e85]
     - [ ] Create/Update `ImapSyncJobTest.php` to verify syncing from a custom folder (e.g., 'INBOX.enviadas').
     - [ ] Implement `folder` parameter and logic in `ImapSyncJob.php`.
-- [ ] Task: Update `MessageController` for improved Sent folder targeting.
+- [x] Task: Update `MessageController` for improved Sent folder targeting. [d345b57]
     - [ ] Update `MessageSendApiTest.php` to verify prioritizing `INBOX.enviadas`.
     - [ ] Refactor `MessageController@saveToImapSent` to include `INBOX.enviadas` in the search list and prioritize it.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Core Logic Enhancements' (Protocol in workflow.md)
