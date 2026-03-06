@@ -11,6 +11,7 @@ use Webklex\IMAP\Facades\Client;
 use Mockery;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Webklex\PHPIMAP\Support\FlagCollection;
 
 class ImapSyncJobTest extends TestCase
 {
@@ -81,7 +82,8 @@ class ImapSyncJobTest extends TestCase
         $msg->shouldReceive('get')->with('from')->andReturn(collect([ (object)['mail' => $from] ]));
         $msg->shouldReceive('get')->with('to')->andReturn(collect([ (object)['mail' => 'user@example.com'] ]));
         $msg->shouldReceive('get')->with('date')->andReturn(Carbon::now());
-        $msg->shouldReceive('get')->with('is_read')->andReturn(true);
+        
+        $msg->shouldReceive('getFlags')->andReturn(new FlagCollection(['seen']));
         
         $msg->shouldReceive('getHTMLBody')->andReturn($body);
         $msg->shouldReceive('getTextBody')->andReturn($body);

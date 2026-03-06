@@ -41,6 +41,7 @@ class ImapSyncJob implements ShouldQueue
             $messages = $folder->query()->all()->get();
 
             foreach ($messages as $message) {
+                Log::debug("Syncing email: UID={$message->uid}, Subject={$message->subject}, Seen={$message->getFlags()->has('seen')}");
                 Email::updateOrCreate(
                     [
                         'user_id' => $this->user->id,
@@ -53,7 +54,7 @@ class ImapSyncJob implements ShouldQueue
                         'to' => $message->to->first()->mail ?? '',
                         'date' => $message->date,
                         'body' => $message->getHTMLBody() ?: $message->getTextBody(),
-                        'is_read' => $message->is_read ?? true,
+                        'is_read' => $message->getFlags()->has('seen') ? 1 : 0,
                     ]
                 );
             }

@@ -7,5 +7,5 @@
 
 ---
 
-- [ ] **Track: Implement inbox view with svelte as a SPA.**
+- [~] **Track: Implement inbox view with svelte as a SPA.**
 *Link: [./tracks/inbox_view_20260305/](./tracks/inbox_view_20260305/)*
