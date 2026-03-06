@@ -30,11 +30,11 @@ class MessageSendApiTest extends TestCase
         
         $folderMock = Mockery::mock('Webklex\PHPIMAP\Folder');
         $folderMock->shouldReceive('appendMessage')->once();
-        $folderMock->path = 'INBOX.Sent';
+        $folderMock->path = 'INBOX.enviadas';
 
         $clientMock->shouldReceive('connect')->once()->andReturn($clientMock);
         $clientMock->shouldReceive('getFolders')->once()->andReturn(new FolderCollection(collect([$folderMock])));
-        $clientMock->shouldReceive('getFolderByPath')->with('INBOX.Sent')->once()->andReturn($folderMock);
+        $clientMock->shouldReceive('getFolderByPath')->with('INBOX.enviadas')->once()->andReturn($folderMock);
         
         Client::shouldReceive('account')->with('default')->once()->andReturn($clientMock);
 
