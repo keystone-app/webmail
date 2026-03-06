@@ -40,6 +40,7 @@ class LoginController extends Controller
     {
         return view('app', [
             'props' => [
+                'component' => 'Login',
                 'csrfToken' => csrf_token(),
                 'errors' => $request->session()->get('errors') ? $request->session()->get('errors')->getBag('default')->first('email') : null,
                 'old' => $request->session()->getOldInput(),

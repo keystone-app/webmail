@@ -24,6 +24,19 @@ class ImapLoginTest extends TestCase
         $response->assertViewHas('props');
     }
 
+    public function test_home_page_can_be_rendered_for_authenticated_user(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/home');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('app');
+        $response->assertViewHas('props', function ($props) {
+            return $props['component'] === 'MailApp';
+        });
+    }
+
     public function test_successful_imap_login_creates_user_and_logs_them_in(): void
     {
         Queue::fake();
