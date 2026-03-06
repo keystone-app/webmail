@@ -4,9 +4,9 @@
 - [x] Task: Install dependencies 6997aec
     - [x] Run `composer require webklex/laravel-imap`
     - [x] Publish the configuration file: `php artisan vendor:publish --provider="Webklex\IMAP\Providers\LaravelServiceProvider"`
-- [ ] Task: Configuration setup
-    - [ ] Update `.env.example` and `.env` with IMAP settings (Host, Port, Encryption)
-    - [ ] Verify `config/imap.php` uses these environment variables
+- [x] Task: Configuration setup 10e5e61
+    - [x] Update `.env.example` and `.env` with IMAP settings (Host, Port, Encryption)
+    - [x] Verify `config/imap.php` uses these environment variables
 - [ ] Task: Conductor - User Manual Verification 'Environment Setup' (Protocol in workflow.md)
 
 ## Phase 2: Core Authentication Logic
