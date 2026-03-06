@@ -1,6 +1,6 @@
 # Implementation Plan: Refactor IMAP Sync Job
 
-## Phase 1: Foundation & Abstraction
+## Phase 1: Foundation & Abstraction [checkpoint: 355fefb]
 
 - [x] Task: Create `ImapConnectionManager` service. [a8a5faf]
     - [x] Write tests for connection management (connect, reconnect, error handling).
@@ -11,7 +11,7 @@
 - [x] Task: Create `ImapMessageRepository` service. [94b4177]
     - [x] Write tests for storing messages and managing UIDs (mirror sync/deletion).
     - [x] Implement `ImapMessageRepository` to handle database interactions.
-- [~] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Abstraction' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Abstraction' (Protocol in workflow.md)
 
 ## Phase 2: Core Refactoring
 
