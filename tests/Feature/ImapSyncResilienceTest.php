@@ -8,11 +8,14 @@ use App\Services\ImapConnectionManager;
 use App\Services\ImapMessageParser;
 use App\Services\ImapMessageRepository;
 use Exception;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 use Tests\TestCase;
 
 class ImapSyncResilienceTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_it_retries_on_connection_failure(): void
     {
         $user = User::factory()->create();
