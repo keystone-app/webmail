@@ -24,7 +24,7 @@
     - [x] Assemble these components into a responsive layout using Tailwind CSS 4 within `App.svelte`.
 - [ ] Task: Conductor - User Manual Verification 'Frontend SPA Infrastructure' (Protocol in workflow.md)
 
-## Phase 3: Frontend Data Integration
+## Phase 3: Frontend Data Integration [checkpoint: 95db5a3]
 - [x] Task: Fetch and Display Email List d293a4f
     - [x] Implement logic in `EmailList.svelte` to fetch data from `/api/emails` on mount.
     - [x] Display the fetched list with sender, subject, and date.
