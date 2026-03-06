@@ -28,7 +28,7 @@
 - [x] Task: Fetch and Display Email List d293a4f
     - [x] Implement logic in `EmailList.svelte` to fetch data from `/api/emails` on mount.
     - [x] Display the fetched list with sender, subject, and date.
-- [ ] Task: Implement Reading Pane
-    - [ ] Setup client-side routing so clicking an email updates the URL and selected state.
-    - [ ] Implement logic in `ReadingPane.svelte` to fetch and display the full body of the selected email via `/api/emails/{id}`.
+- [x] Task: Implement Reading Pane c4e59e7
+    - [x] Setup client-side routing so clicking an email updates the URL and selected state.
+    - [x] Implement logic in `ReadingPane.svelte` to fetch and display the full body of the selected email via `/api/emails/{id}`.
 - [ ] Task: Conductor - User Manual Verification 'Frontend Data Integration' (Protocol in workflow.md)
