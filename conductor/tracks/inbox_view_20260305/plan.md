@@ -25,9 +25,9 @@
 - [ ] Task: Conductor - User Manual Verification 'Frontend SPA Infrastructure' (Protocol in workflow.md)
 
 ## Phase 3: Frontend Data Integration
-- [ ] Task: Fetch and Display Email List
-    - [ ] Implement logic in `EmailList.svelte` to fetch data from `/api/emails` on mount.
-    - [ ] Display the fetched list with sender, subject, and date.
+- [x] Task: Fetch and Display Email List d293a4f
+    - [x] Implement logic in `EmailList.svelte` to fetch data from `/api/emails` on mount.
+    - [x] Display the fetched list with sender, subject, and date.
 - [ ] Task: Implement Reading Pane
     - [ ] Setup client-side routing so clicking an email updates the URL and selected state.
     - [ ] Implement logic in `ReadingPane.svelte` to fetch and display the full body of the selected email via `/api/emails/{id}`.
