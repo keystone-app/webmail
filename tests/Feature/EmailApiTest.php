@@ -30,11 +30,13 @@ class EmailApiTest extends TestCase
         $user = User::factory()->create();
         Email::factory()->count(5)->create(['user_id' => $user->id, 'folder' => 'INBOX']);
         Email::factory()->count(3)->create(['user_id' => $user->id, 'folder' => 'SENT']);
+        Email::factory()->count(2)->create(['user_id' => $user->id, 'folder' => 'enviadas']);
 
         $response = $this->actingAs($user)->getJson('/api/emails?folder=SENT');
+        $response->assertStatus(200)->assertJsonCount(3, 'data');
 
-        $response->assertStatus(200)
-            ->assertJsonCount(3, 'data');
+        $response = $this->actingAs($user)->getJson('/api/emails?folder=enviadas');
+        $response->assertStatus(200)->assertJsonCount(2, 'data');
     }
 
     public function test_it_returns_a_single_email_for_authenticated_user(): void

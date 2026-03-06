@@ -19,6 +19,6 @@
 
 ## Phase 3: Final Verification
 
-- [ ] Task: End-to-end verification.
+- [~] Task: End-to-end verification.
     - [ ] Perform a manual test of sending an email and verifying its appearance in the database after the background sync.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Final Verification' (Protocol in workflow.md)

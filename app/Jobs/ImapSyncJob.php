@@ -13,6 +13,7 @@ use Webklex\IMAP\Facades\Client;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class ImapSyncJob implements ShouldQueue
 {
@@ -47,10 +48,12 @@ class ImapSyncJob implements ShouldQueue
             }
 
             $messages = $folder->query()->all()->get();
+            $syncedUids = [];
 
             foreach ($messages as $message) {
                 Log::debug("Syncing email from folder {$this->folder}: UID={$message->uid}, Subject={$message->subject}, Seen={$message->getFlags()->has('seen')}");
                 
+                $syncedUids[] = $message->uid;
                 $body = $message->getHTMLBody() ?: $message->getTextBody();
 
                 $email = Email::updateOrCreate(
@@ -105,6 +108,19 @@ class ImapSyncJob implements ShouldQueue
                     }
                 }
             }
+
+            // Delete messages that are no longer present in the IMAP folder
+            $deletedCount = Email::where('user_id', $this->user->id)
+                ->where('folder', $this->folder)
+                ->whereNotIn('imap_uid', $syncedUids)
+                ->delete();
+            
+            if ($deletedCount > 0) {
+                Log::info("Deleted {$deletedCount} messages from folder {$this->folder} for user {$this->user->id} that were missing on IMAP.");
+            }
+
+            // Mark sync as completed for this user and folder
+            Cache::put("sync_completed_{$this->user->id}_{$this->folder}", true, 300); // 5 mins
         } catch (Exception $e) {
             Log::error("Failed to sync IMAP for user {$this->user->id}: " . $e->getMessage());
             throw $e;

@@ -131,12 +131,27 @@ class MessageController extends Controller
     protected function saveToImapSent($user, $rawMessage)
     {
         $password = session('imap_password');
-        Log::debug("Checking session for imap_password. Session ID: " . session()->getId() . ". Has password: " . ($password ? 'Yes' : 'No'));
         
         if (!$password) {
-            Log::warning("Cannot save to IMAP Sent: imap_password not found in session for user {$user->id}");
+            Log::warning("Cannot save to IMAP Sent: imap_password not found in session");
             return null;
         }
+
+        $attemptAppend = function($client) use ($rawMessage, $user) {
+            $sentFolder = $client->getFolder('enviadas');
+            if ($sentFolder) {
+                Log::debug("Using Sent folder: {$sentFolder->path}. Appending message...");
+                
+                // Ensure CRLF
+                $message = str_replace("\r\n", "\n", $rawMessage);
+                $message = str_replace("\n", "\r\n", $message);
+                
+                $sentFolder->appendMessage($message, ['\Seen']);
+                Log::info("Successfully saved message to IMAP Sent folder for user {$user->id}");
+                return $sentFolder->name;
+            }
+            return null;
+        };
 
         try {
             $client = Client::account('default');
@@ -144,27 +159,22 @@ class MessageController extends Controller
             $client->password = $password;
             $client->connect();
 
-            // Strictly target 'enviadas' as it's the only folder known to work for sync
-            $sentFolder = $client->getFolder('enviadas');
-
-            if ($sentFolder) {
-                Log::debug("Using Sent folder: {$sentFolder->path}. Appending message...");
-                
-                // Ensure CRLF line endings for IMAP compatibility
-                $rawMessage = str_replace("\r\n", "\n", $rawMessage);
-                $rawMessage = str_replace("\n", "\r\n", $rawMessage);
-                
-                // Use the most basic appendMessage signature with Seen flag
-                $sentFolder->appendMessage($rawMessage, ['\Seen']);
-                Log::info("Successfully saved message to IMAP Sent folder for user {$user->id}");
-                return $sentFolder->path;
-            } else {
-                Log::warning("Could not find 'enviadas' folder for user {$user->id}");
+            return $attemptAppend($client);
+        } catch (\Exception $e) {
+            Log::error("First IMAP append attempt failed: " . $e->getMessage());
+            
+            // Retry once with a fresh connection
+            try {
+                Log::info("Retrying IMAP append with fresh connection...");
+                $client = Client::account('default');
+                $client->username = $user->email;
+                $client->password = $password;
+                $client->connect();
+                return $attemptAppend($client);
+            } catch (\Exception $retryException) {
+                Log::error("Failed to save message to IMAP Sent folder after retry: " . $retryException->getMessage());
                 return null;
             }
-        } catch (\Exception $e) {
-            Log::error("Failed to save message to IMAP Sent folder for user {$user->id}: " . $e->getMessage());
-            return null;
         }
     }
 }

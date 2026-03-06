@@ -4,7 +4,7 @@
     import EmailList from '../../Components/Mail/EmailList.svelte';
     import ReadingPane from '../../Components/Mail/ReadingPane.svelte';
     import Composer from '../../Components/Mail/Composer.svelte';
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
 
     let { user, emails: initialEmails = [] } = $props();
     
@@ -15,14 +15,25 @@
     let isComposeModalOpen = $state(false);
     let isLoading = $state(false);
 
+    // Map UI folder names to database folder names
+    const folderMap = {
+        'Inbox': 'INBOX',
+        'Sent': 'enviadas',
+        'Drafts': 'DRAFTS',
+        'Trash': 'TRASH'
+    };
+
     // Derived selected email object
     const selectedEmail = $derived(emails.find(e => e.id === selectedEmailId) || null);
 
     // Fetch emails from the API
     async function fetchEmails(folder = 'Inbox') {
         isLoading = true;
+        
+        const apiFolder = folderMap[folder] || folder;
+
         try {
-            const response = await fetch(`/api/emails?folder=${folder}`);
+            const response = await fetch(`/api/emails?folder=${apiFolder}`);
             const result = await response.json();
             emails = result.data;
         } catch (error) {
@@ -30,6 +41,44 @@
         } finally {
             isLoading = false;
         }
+    }
+
+    async function checkSyncStatus(folder) {
+        const apiFolder = folderMap[folder] || folder;
+        try {
+            const response = await fetch(`/api/emails/sync-status?folder=${apiFolder}`);
+            const result = await response.json();
+            return result.completed;
+        } catch (error) {
+            console.error('Failed to check sync status:', error);
+            return false;
+        }
+    }
+
+    let pollInterval;
+    let foldersToPoll = $state(new Set());
+
+    function startPolling() {
+        if (pollInterval) return;
+
+        pollInterval = setInterval(async () => {
+            if (foldersToPoll.size === 0) {
+                clearInterval(pollInterval);
+                pollInterval = null;
+                return;
+            }
+
+            for (const folder of foldersToPoll) {
+                const completed = await checkSyncStatus(folder);
+                if (completed) {
+                    foldersToPoll.delete(folder);
+                    // Refresh if this is the currently viewed folder
+                    if (activeFolder === folder) {
+                        fetchEmails(folder);
+                    }
+                }
+            }
+        }, 2000);
     }
 
     async function fetchEmailDetails(id) {
@@ -76,6 +125,17 @@
     function closeCompose() {
         isComposeModalOpen = false;
     }
+
+    function onSendSuccess() {
+        closeCompose();
+        // Add Sent folder to polling queue
+        foldersToPoll.add('Sent');
+        startPolling();
+    }
+
+    onDestroy(() => {
+        if (pollInterval) clearInterval(pollInterval);
+    });
 
     // Keyboard Shortcuts
     function handleKeydown(event) {
@@ -177,5 +237,5 @@
 
 <!-- Compose Modal -->
 {#if isComposeModalOpen}
-    <Composer onClose={closeCompose} />
+    <Composer onClose={closeCompose} onSuccess={onSendSuccess} />
 {/if}
