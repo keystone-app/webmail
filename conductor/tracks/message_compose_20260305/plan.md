@@ -34,7 +34,7 @@
     - [ ] Implement frontend progress bar for uploads.
 - [x] Task: IMAP "Save to Sent" Integration e222eac
     - [x] Implement logic to append the sent message to the user's IMAP "Sent" folder.
-- [ ] Task: End-to-End Polish
-    - [ ] Add success/error notifications for sending and saving.
-    - [ ] Verify keyboard shortcuts (e.g., Ctrl+Enter to send).
+- [x] Task: End-to-End Polish 5ea6b38
+    - [x] Add success/error notifications for sending and saving.
+    - [x] Verify keyboard shortcuts (e.g., Ctrl+Enter to send).
 - [ ] Task: Conductor - User Manual Verification 'Sending Logic & Integration' (Protocol in workflow.md)
