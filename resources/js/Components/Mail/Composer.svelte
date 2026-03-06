@@ -1,13 +1,43 @@
 <script>
+    import { createEditor, Editor, EditorContent } from 'svelte-tiptap';
+    import StarterKit from '@tiptap/starter-kit';
+    import { onMount, onDestroy } from 'svelte';
+
     let { onClose } = $props();
     
     let to = $state('');
     let cc = $state('');
     let bcc = $state('');
     let subject = $state('');
+    let body = $state('');
     
     let showCc = $state(false);
     let showBcc = $state(false);
+
+    let editor = $state();
+
+    onMount(() => {
+        editor = new Editor({
+            extensions: [
+                StarterKit,
+            ],
+            content: '',
+            editorProps: {
+                attributes: {
+                    class: 'prose prose-slate max-w-none focus:outline-none min-h-[300px] p-4',
+                },
+            },
+            onUpdate: ({ editor }) => {
+                body = editor.getHTML();
+            },
+        });
+    });
+
+    onDestroy(() => {
+        if (editor) {
+            editor.destroy();
+        }
+    });
 </script>
 
 <div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
@@ -99,9 +129,43 @@
                 <div class="h-px bg-slate-100 w-full"></div>
             </div>
 
-            <!-- Tiptap Editor Placeholder -->
-            <div class="min-h-[300px] prose prose-slate max-w-none focus:outline-none">
-                <p class="text-slate-400 italic">Rich text editor will be here...</p>
+            <!-- Tiptap Toolbar -->
+            {#if editor}
+                <div class="flex items-center space-x-1 p-1 bg-slate-50 rounded-lg border border-slate-100">
+                    <button 
+                        onclick={() => editor.chain().focus().toggleBold().run()}
+                        class="p-1.5 rounded hover:bg-white transition-all {editor.isActive('bold') ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}"
+                        title="Bold"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" />
+                        </svg>
+                    </button>
+                    <button 
+                        onclick={() => editor.chain().focus().toggleItalic().run()}
+                        class="p-1.5 rounded hover:bg-white transition-all {editor.isActive('italic') ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}"
+                        title="Italic"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 0h-4m-4 16H6" />
+                        </svg>
+                    </button>
+                    <div class="w-px h-4 bg-slate-200 mx-1"></div>
+                    <button 
+                        onclick={() => editor.chain().focus().toggleBulletList().run()}
+                        class="p-1.5 rounded hover:bg-white transition-all {editor.isActive('bulletList') ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}"
+                        title="Bullet List"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            {/if}
+
+            <div class="border border-slate-100 rounded-lg overflow-hidden bg-slate-50/30">
+                <EditorContent {editor} />
             </div>
         </div>
 
