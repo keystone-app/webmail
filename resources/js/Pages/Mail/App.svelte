@@ -78,23 +78,23 @@
 
 <!-- Reading Pane Modal -->
 {#if isModalOpen && selectedEmail}
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-        <!-- Backdrop -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+        <!-- Backdrop with more blur -->
         <button 
-            class="absolute inset-0 bg-gray-500/75 transition-opacity border-none cursor-default w-full h-full" 
+            class="absolute inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity border-none cursor-default w-full h-full" 
             onclick={closeModal}
             aria-label="Close modal"
         ></button>
 
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-5xl h-full max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="flex justify-end p-4 border-b border-gray-100">
+        <!-- Modal content with more polish -->
+        <div class="relative bg-white rounded-3xl shadow-2xl shadow-slate-950/20 w-full max-w-6xl h-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200">
+            <div class="absolute top-6 right-6 z-20">
                 <button 
                     onclick={closeModal}
-                    class="text-gray-400 hover:text-gray-500 transition-colors"
+                    class="bg-white/80 backdrop-blur-sm text-slate-400 hover:text-gray-950 p-2 rounded-full transition-all border border-slate-100 hover:border-slate-300 shadow-sm hover:shadow-md"
+                    aria-label="Close modal"
                 >
-                    <span class="sr-only">Close</span>
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
