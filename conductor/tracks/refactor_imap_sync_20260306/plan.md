@@ -2,10 +2,10 @@
 
 ## Phase 1: Foundation & Abstraction
 
-- [ ] Task: Create `ImapConnectionManager` service.
-    - [ ] Write tests for connection management (connect, reconnect, error handling).
-    - [ ] Implement `ImapConnectionManager` using `webklex/laravel-imap`.
-- [ ] Task: Create `ImapMessageParser` service.
+- [x] Task: Create `ImapConnectionManager` service. [a8a5faf]
+    - [x] Write tests for connection management (connect, reconnect, error handling).
+    - [x] Implement `ImapConnectionManager` using `webklex/laravel-imap`.
+- [~] Task: Create `ImapMessageParser` service.
     - [ ] Write tests for parsing various message structures (text, HTML, attachments, inline images).
     - [ ] Implement `ImapMessageParser` logic extracted from current `ImapSyncJob`.
 - [ ] Task: Create `ImapMessageRepository` service.
