@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Draft;
 use App\Mail\MailMessage;
+use App\Jobs\ImapSyncJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Webklex\IMAP\Facades\Client;
+use Carbon\Carbon;
 
 class MessageController extends Controller
 {
@@ -73,9 +75,31 @@ class MessageController extends Controller
 
         try {
             $mail->send($mailable);
+            
+            // Reconstruct a basic RFC822 message for IMAP APPEND
+            // This ensures we have the basic headers required by the server
+            $boundary = md5(time());
+            $rawMessage = "From: {$user->name} <{$user->email}>\r\n" .
+                           "To: {$validated['to']}\r\n" .
+                           "Subject: {$validated['subject']}\r\n" .
+                           "Date: " . Carbon::now()->toRfc2822String() . "\r\n" .
+                           "MIME-Version: 1.0\r\n" .
+                           "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n" .
+                           "\r\n" .
+                           "--{$boundary}\r\n" .
+                           "Content-Type: text/html; charset=UTF-8\r\n" .
+                           "Content-Transfer-Encoding: 7bit\r\n" .
+                           "\r\n" .
+                           $validated['body'] . "\r\n" .
+                           "--{$boundary}--";
 
             // Save to IMAP Sent folder
-            $this->saveToImapSent($user, $mailable);
+            $sentFolderName = $this->saveToImapSent($user, $rawMessage);
+
+            // Trigger immediate sync of the Sent folder
+            if ($sentFolderName && $password) {
+                ImapSyncJob::dispatch($user, $password, $sentFolderName);
+            }
 
             // Delete draft if it exists and belongs to the user
             if (!empty($validated['draft_id'])) {
@@ -104,15 +128,30 @@ class MessageController extends Controller
     /**
      * Save the sent message to the user's IMAP Sent folder.
      */
-    protected function saveToImapSent($user, $mailable)
+    protected function saveToImapSent($user, $rawMessage)
     {
         $password = session('imap_password');
-        Log::debug("Checking session for imap_password. Session ID: " . session()->getId() . ". Has password: " . ($password ? 'Yes' : 'No'));
         
         if (!$password) {
-            Log::warning("Cannot save to IMAP Sent: imap_password not found in session for user {$user->id}");
-            return;
+            Log::warning("Cannot save to IMAP Sent: imap_password not found in session");
+            return null;
         }
+
+        $attemptAppend = function($client) use ($rawMessage, $user) {
+            $sentFolder = $client->getFolder('enviadas');
+            if ($sentFolder) {
+                Log::debug("Using Sent folder: {$sentFolder->path}. Appending message...");
+                
+                // Ensure CRLF
+                $message = str_replace("\r\n", "\n", $rawMessage);
+                $message = str_replace("\n", "\r\n", $message);
+                
+                $sentFolder->appendMessage($message, ['\Seen']);
+                Log::info("Successfully saved message to IMAP Sent folder for user {$user->id}");
+                return $sentFolder->name;
+            }
+            return null;
+        };
 
         try {
             $client = Client::account('default');
@@ -120,29 +159,22 @@ class MessageController extends Controller
             $client->password = $password;
             $client->connect();
 
-            $folders = $client->getFolders();
-            $folderPaths = [];
-            foreach ($folders as $folder) {
-                $folderPaths[] = $folder->path;
-            }
-            Log::debug("Available IMAP folder paths for user {$user->id}: " . implode(', ', $folderPaths));
-
-            // Try to find the Sent folder with common full paths or generic name
-            $sentFolder = $client->getFolderByPath('INBOX.Sent')
-                ?? $client->getFolderByPath('Sent')
-                ?? $client->getFolderByPath('INBOX/Sent')
-                ?? $client->getFolder('Sent')
-                ?? $client->getFolder('Sent Messages');
-
-            if ($sentFolder) {
-                Log::debug("Found Sent folder: {$sentFolder->path}. Appending message...");
-                $sentFolder->appendMessage($mailable->render());
-                Log::info("Successfully saved message to IMAP Sent folder for user {$user->id}");
-            } else {
-                Log::warning("Could not find a Sent folder for user {$user->id} among: " . implode(', ', $folderPaths));
-            }
+            return $attemptAppend($client);
         } catch (\Exception $e) {
-            Log::error("Failed to save message to IMAP Sent folder for user {$user->id}: " . $e->getMessage());
+            Log::error("First IMAP append attempt failed: " . $e->getMessage());
+            
+            // Retry once with a fresh connection
+            try {
+                Log::info("Retrying IMAP append with fresh connection...");
+                $client = Client::account('default');
+                $client->username = $user->email;
+                $client->password = $password;
+                $client->connect();
+                return $attemptAppend($client);
+            } catch (\Exception $retryException) {
+                Log::error("Failed to save message to IMAP Sent folder after retry: " . $retryException->getMessage());
+                return null;
+            }
         }
     }
 }

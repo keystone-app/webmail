@@ -7,6 +7,7 @@ use App\Http\Resources\EmailResource;
 use App\Models\Email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class EmailController extends Controller
 {
@@ -18,11 +19,25 @@ class EmailController extends Controller
         $folder = $request->query('folder', 'INBOX');
 
         $emails = $request->user()->emails()
-            ->where('folder', strtoupper($folder))
+            ->where('folder', $folder)
             ->orderBy('date', 'desc')
             ->paginate(50);
 
         return EmailResource::collection($emails);
+    }
+
+    /**
+     * Check if a background sync has completed for a specific folder.
+     */
+    public function checkSyncStatus(Request $request)
+    {
+        $folder = $request->query('folder', 'INBOX');
+        $userId = $request->user()->id;
+        $key = "sync_completed_{$userId}_{$folder}";
+
+        $completed = Cache::pull($key, false);
+
+        return response()->json(['completed' => $completed]);
     }
 
     /**

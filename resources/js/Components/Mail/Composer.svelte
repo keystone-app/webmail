@@ -3,7 +3,7 @@
     import StarterKit from '@tiptap/starter-kit';
     import { onMount, onDestroy } from 'svelte';
 
-    let { onClose } = $props();
+    let { onClose, onSuccess } = $props();
     
     let to = $state('');
     let cc = $state('');
@@ -95,7 +95,11 @@
             });
 
             if (response.ok) {
-                onClose();
+                if (onSuccess) {
+                    onSuccess();
+                } else {
+                    onClose();
+                }
             } else {
                 const data = await response.json();
                 error = data.message || "Failed to send email.";

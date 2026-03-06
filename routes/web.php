@@ -22,6 +22,7 @@ Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 
 Route::middleware('auth')->prefix('api')->group(function () {
     Route::get('/emails', [EmailController::class, 'index']);
+    Route::get('/emails/sync-status', [EmailController::class, 'checkSyncStatus']);
     Route::get('/emails/{email}', [EmailController::class, 'show']);
     // Note: attachments.show is needed for proxying inline images/downloads
     Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])->name('attachments.show');
