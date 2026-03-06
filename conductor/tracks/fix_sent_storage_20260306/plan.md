@@ -10,12 +10,12 @@
     - [x] Refactor `MessageController@saveToImapSent` to include `enviadas` in the search list and prioritize it.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Core Logic Enhancements' (Protocol in workflow.md)
 
-## Phase 2: Integration & Triggering
+## Phase 2: Integration & Triggering [checkpoint: 9aec321]
 
 - [x] Task: Dispatch sync job after sending. [6e951ed]
-    - [ ] Update `MessageSendApiTest.php` to assert that `ImapSyncJob` is dispatched for the Sent folder after a successful send.
-    - [ ] Implement the `ImapSyncJob::dispatch()` call in `MessageController@send`.
-- [~] Task: Conductor - User Manual Verification 'Phase 2: Integration & Triggering' (Protocol in workflow.md)
+    - [x] Update `MessageSendApiTest.php` to assert that `ImapSyncJob` is dispatched for the Sent folder after a successful send.
+    - [x] Implement the `ImapSyncJob::dispatch()` call in `MessageController@send`.
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Integration & Triggering' (Protocol in workflow.md)
 
 ## Phase 3: Final Verification
 
