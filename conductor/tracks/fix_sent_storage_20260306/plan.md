@@ -1,14 +1,14 @@
 # Implementation Plan: Fix Sent Messages Storage
 
-## Phase 1: Core Logic Enhancements
+## Phase 1: Core Logic Enhancements [checkpoint: 3fe5f2e]
 
 - [x] Task: Refactor `ImapSyncJob` to support custom folders. [1967e85]
-    - [ ] Create/Update `ImapSyncJobTest.php` to verify syncing from a custom folder (e.g., 'INBOX.enviadas').
-    - [ ] Implement `folder` parameter and logic in `ImapSyncJob.php`.
+    - [x] Create/Update `ImapSyncJobTest.php` to verify syncing from a custom folder (e.g., 'enviadas').
+    - [x] Implement `folder` parameter and logic in `ImapSyncJob.php`.
 - [x] Task: Update `MessageController` for improved Sent folder targeting. [d345b57]
-    - [ ] Update `MessageSendApiTest.php` to verify prioritizing `INBOX.enviadas`.
-    - [ ] Refactor `MessageController@saveToImapSent` to include `INBOX.enviadas` in the search list and prioritize it.
-- [~] Task: Conductor - User Manual Verification 'Phase 1: Core Logic Enhancements' (Protocol in workflow.md)
+    - [x] Update `MessageSendApiTest.php` to verify prioritizing `enviadas`.
+    - [x] Refactor `MessageController@saveToImapSent` to include `enviadas` in the search list and prioritize it.
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Core Logic Enhancements' (Protocol in workflow.md)
 
 ## Phase 2: Integration & Triggering
 
