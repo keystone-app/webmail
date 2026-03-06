@@ -23,13 +23,13 @@
 - [ ] Task: Conductor - User Manual Verification 'Core Authentication Logic' (Protocol in workflow.md)
 
 ## Phase 3: Frontend & Integration
-- [ ] Task: Create Login UI
-    - [ ] Develop Svelte 5 login form with Tailwind CSS 4
-    - [ ] Implement form validation and display of authentication errors
-- [ ] Task: Route Integration
-    - [ ] Create `Auth\LoginController` to handle authentication requests
-    - [ ] Define routes in `routes/web.php` for login and logout
-- [ ] Task: Full Authentication Flow Verification
-    - [ ] Write integration tests for the complete login/logout journey
-    - [ ] Verify CSRF protection and secure session handling
+- [x] Task: Create Login UI 05034ab
+    - [x] Develop Svelte 5 login form with Tailwind CSS 4
+    - [x] Implement form validation and display of authentication errors
+- [x] Task: Route Integration 05034ab
+    - [x] Create `Auth\LoginController` to handle authentication requests
+    - [x] Define routes in `routes/web.php` for login and logout
+- [x] Task: Full Authentication Flow Verification 05034ab
+    - [x] Write integration tests for the complete login/logout journey
+    - [x] Verify CSRF protection and secure session handling
 - [ ] Task: Conductor - User Manual Verification 'Frontend & Integration' (Protocol in workflow.md)
