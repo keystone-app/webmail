@@ -12,7 +12,7 @@
 
 ## Phase 2: Integration & Triggering
 
-- [ ] Task: Dispatch sync job after sending.
+- [x] Task: Dispatch sync job after sending. [6e951ed]
     - [ ] Update `MessageSendApiTest.php` to assert that `ImapSyncJob` is dispatched for the Sent folder after a successful send.
     - [ ] Implement the `ImapSyncJob::dispatch()` call in `MessageController@send`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Integration & Triggering' (Protocol in workflow.md)
