@@ -12,6 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Webklex\IMAP\Facades\Client;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ImapSyncJob implements ShouldQueue
 {
@@ -42,7 +43,10 @@ class ImapSyncJob implements ShouldQueue
 
             foreach ($messages as $message) {
                 Log::debug("Syncing email: UID={$message->uid}, Subject={$message->subject}, Seen={$message->getFlags()->has('seen')}");
-                Email::updateOrCreate(
+                
+                $body = $message->getHTMLBody() ?: $message->getTextBody();
+
+                $email = Email::updateOrCreate(
                     [
                         'user_id' => $this->user->id,
                         'folder' => 'INBOX',
@@ -53,10 +57,46 @@ class ImapSyncJob implements ShouldQueue
                         'from' => $message->from->first()->mail ?? '',
                         'to' => $message->to->first()->mail ?? '',
                         'date' => $message->date,
-                        'body' => $message->getHTMLBody() ?: $message->getTextBody(),
+                        'body' => $body,
                         'is_read' => $message->getFlags()->has('seen') ? 1 : 0,
                     ]
                 );
+
+                // Handle attachments
+                $attachments = $message->getAttachments();
+                foreach ($attachments as $attachment) {
+                    $filename = $attachment->getName() ?: 'unnamed_attachment';
+                    $contentType = $attachment->getContentType();
+                    $size = $attachment->getSize();
+                    $contentId = $attachment->getContentId();
+                    // Strip brackets from contentId if present
+                    $cleanContentId = str_replace(['<', '>'], '', (string)$contentId);
+                    
+                    $isInline = strtolower((string)$attachment->disposition) === 'inline';
+
+                    $storagePath = "attachments/{$this->user->id}/{$email->id}";
+                    
+                    // Save to storage
+                    Storage::disk('public')->put("{$storagePath}/{$filename}", $attachment->getContent());
+
+                    $emailAttachment = $email->attachments()->updateOrCreate(
+                        ['content_id' => $contentId, 'filename' => $filename],
+                        [
+                            'content_type' => $contentType,
+                            'size' => $size,
+                            'path' => "{$storagePath}/{$filename}",
+                            'is_inline' => $isInline,
+                        ]
+                    );
+
+                    // If inline, try to replace cid in body
+                    if ($isInline && $cleanContentId) {
+                        $proxyUrl = route('attachments.show', $emailAttachment->id);
+                        Log::debug("Replacing cid:{$cleanContentId} with {$proxyUrl}");
+                        $email->body = str_replace("cid:{$cleanContentId}", $proxyUrl, $email->body);
+                        $email->save();
+                    }
+                }
             }
         } catch (Exception $e) {
             Log::error("Failed to sync IMAP for user {$this->user->id}: " . $e->getMessage());

@@ -12,6 +12,7 @@
 
 ## Testing and Quality
 - **Unit/Feature Testing:** [PHPUnit 11](https://phpunit.de/).
+- **Component Testing:** [Vitest](https://vitest.dev/) with [Svelte Testing Library](https://testing-library.com/docs/svelte-testing-library/intro).
 - **Code Style:** [Laravel Pint](https://laravel.com/docs/12.x/pint).
 - **Type Safety:** PHP strict types where applicable.
 
