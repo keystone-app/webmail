@@ -15,7 +15,10 @@ class EmailController extends Controller
      */
     public function index(Request $request)
     {
+        $folder = $request->query('folder', 'INBOX');
+
         $emails = $request->user()->emails()
+            ->where('folder', strtoupper($folder))
             ->orderBy('date', 'desc')
             ->paginate(50);
 

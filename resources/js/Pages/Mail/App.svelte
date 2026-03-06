@@ -14,10 +14,10 @@
     let isLoading = $state(false);
 
     // Fetch emails from the API
-    async function fetchEmails() {
+    async function fetchEmails(folder = 'Inbox') {
         isLoading = true;
         try {
-            const response = await fetch('/api/emails');
+            const response = await fetch(`/api/emails?folder=${folder}`);
             const result = await response.json();
             emails = result.data;
         } catch (error) {
@@ -28,7 +28,12 @@
     }
 
     onMount(() => {
-        fetchEmails();
+        fetchEmails(activeFolder);
+    });
+
+    // Re-fetch when activeFolder changes
+    $effect(() => {
+        fetchEmails(activeFolder);
     });
 
     // Watch for selectedEmail changes to open the modal
