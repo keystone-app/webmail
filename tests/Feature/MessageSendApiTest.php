@@ -8,10 +8,8 @@ use App\Mail\MailMessage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
-
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-
 use Webklex\IMAP\Facades\Client;
 use Mockery;
 
@@ -47,7 +45,10 @@ class MessageSendApiTest extends TestCase
 
         $response->assertStatus(200);
         
-        Mail::assertSent(MailMessage::class);
+        Mail::assertSent(MailMessage::class, function ($mail) use ($user) {
+            return $mail->hasTo('recipient@example.com') &&
+                   $mail->fromData['email'] === $user->email;
+        });
     }
 
     public function test_authenticated_user_can_send_an_email_with_attachments(): void

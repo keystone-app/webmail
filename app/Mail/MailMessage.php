@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -19,6 +20,7 @@ class MailMessage extends Mailable
     public function __construct(
         public $subject,
         public $body,
+        public array $fromData,
         public $attachmentsData = [],
     ) {
         $this->subject($subject);
@@ -30,6 +32,7 @@ class MailMessage extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: new Address($this->fromData['email'], $this->fromData['name']),
             subject: $this->subject,
         );
     }
