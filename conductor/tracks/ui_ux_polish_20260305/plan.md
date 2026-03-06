@@ -9,7 +9,7 @@
     - [x] Update `Sidebar.svelte` and `Toolbar.svelte` with Heroicons and improved spacing.
 - [ ] Task: Conductor - User Manual Verification 'Authentication UI and App Shell Polish' (Protocol in workflow.md)
 
-## Phase 2: Email List and Contextual Actions
+## Phase 2: Email List and Contextual Actions [checkpoint: 8558869]
 - [x] Task: Implement Loading Skeletons 00e2667
     - [x] Write failing tests for loading state display.
     - [x] Create `EmailSkeleton.svelte` and integrate into `EmailList.svelte`.
