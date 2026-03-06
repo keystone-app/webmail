@@ -25,7 +25,7 @@
 
 ## Phase 3: Final Verification
 
-- [ ] Task: Verification & Performance check.
+- [~] Task: Verification & Performance check.
     - [ ] Run full automated test suite and ensure coverage > 80%.
     - [ ] Perform manual end-to-end sync verification.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Final Verification' (Protocol in workflow.md)
