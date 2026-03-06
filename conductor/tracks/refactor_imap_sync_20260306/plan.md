@@ -5,10 +5,10 @@
 - [x] Task: Create `ImapConnectionManager` service. [a8a5faf]
     - [x] Write tests for connection management (connect, reconnect, error handling).
     - [x] Implement `ImapConnectionManager` using `webklex/laravel-imap`.
-- [~] Task: Create `ImapMessageParser` service.
-    - [ ] Write tests for parsing various message structures (text, HTML, attachments, inline images).
-    - [ ] Implement `ImapMessageParser` logic extracted from current `ImapSyncJob`.
-- [ ] Task: Create `ImapMessageRepository` service.
+- [x] Task: Create `ImapMessageParser` service. [9009c51]
+    - [x] Write tests for parsing various message structures (text, HTML, attachments, inline images).
+    - [x] Implement `ImapMessageParser` logic extracted from current `ImapSyncJob`.
+- [~] Task: Create `ImapMessageRepository` service.
     - [ ] Write tests for storing messages and managing UIDs (mirror sync/deletion).
     - [ ] Implement `ImapMessageRepository` to handle database interactions.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Abstraction' (Protocol in workflow.md)
