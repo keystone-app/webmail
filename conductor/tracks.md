@@ -7,5 +7,5 @@
 
 ---
 
-- [~] **Track: Implement message compose so that a user can send an email**
+- [x] **Track: Implement message compose so that a user can send an email**
 *Link: [./tracks/message_compose_20260305/](./tracks/message_compose_20260305/)*

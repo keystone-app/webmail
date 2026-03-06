@@ -10,7 +10,7 @@
 - [x] Task: Drafts API Endpoints 1ef84d6
     - [x] Write failing feature tests for saving and updating drafts.
     - [x] Implement `Api\DraftController` with `store` and `update` methods.
-- [ ] Task: Conductor - User Manual Verification 'Backend Infrastructure' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Backend Infrastructure' (Protocol in workflow.md)
 
 ## Phase 2: Frontend Composer UI [checkpoint: 2cb2848]
 - [x] Task: Install Editor Dependencies da4c331
@@ -23,7 +23,7 @@
     - [x] Ensure formatting toolbar is functional.
 - [x] Task: Auto-save Draft Logic fc87d55
     - [x] Implement debounced auto-save logic to the `Api\DraftController`.
-- [ ] Task: Conductor - User Manual Verification 'Frontend Composer UI' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Frontend Composer UI' (Protocol in workflow.md)
 
 ## Phase 3: Sending Logic & Integration
 - [x] Task: Mailer Service and API b485c4e
@@ -34,7 +34,7 @@
     - [ ] Implement frontend progress bar for uploads.
 - [x] Task: IMAP "Save to Sent" Integration e222eac
     - [x] Implement logic to append the sent message to the user's IMAP "Sent" folder.
-- [x] Task: End-to-End Polish 5ea6b38
+- [x] Task: End-to-End Polish 6ecb7dc
     - [x] Add success/error notifications for sending and saving.
     - [x] Verify keyboard shortcuts (e.g., Ctrl+Enter to send).
-- [ ] Task: Conductor - User Manual Verification 'Sending Logic & Integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Sending Logic & Integration' (Protocol in workflow.md)
