@@ -1,6 +1,6 @@
 # Implementation Plan: Implement Inbox View (Svelte SPA)
 
-## Phase 1: Database and Backend Sync Logic
+## Phase 1: Database and Backend Sync Logic [checkpoint: a57bd90]
 - [x] Task: Create Email Model and Migration 8cded50
     - [x] Create `Email` Eloquent model and migration (fields: user_id, imap_uid, folder, subject, from, to, date, body, is_read).
     - [x] Write tests ensuring the `Email` model has the correct relationships (belongs to User).
