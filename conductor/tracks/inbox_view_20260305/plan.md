@@ -13,7 +13,7 @@
     - [x] Implement `Api\EmailController` to return paginated emails and individual email details for the authenticated user.
 - [ ] Task: Conductor - User Manual Verification 'Database and Backend Sync Logic' (Protocol in workflow.md)
 
-## Phase 2: Frontend SPA Infrastructure
+## Phase 2: Frontend SPA Infrastructure [checkpoint: 8dc2f22]
 - [x] Task: Install Svelte Router 4140236
     - [x] Run `npm install svelte-routing` (or similar appropriate router).
 - [x] Task: Setup Main App Layout e180052
