@@ -12,6 +12,19 @@ export default defineConfig({
         tailwindcss(),
         svelte(),
     ],
+    resolve: {
+        conditions: ['browser', 'development'],
+    },
+    test: {
+        environment: 'jsdom',
+        globals: true,
+        setupFiles: ['./resources/js/test-setup.js'],
+        server: {
+            deps: {
+                inline: [/svelte/],
+            },
+        },
+    },
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
