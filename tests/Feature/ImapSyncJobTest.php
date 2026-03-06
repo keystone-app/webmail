@@ -144,6 +144,31 @@ class ImapSyncJobTest extends TestCase
         ]);
     }
 
+    public function test_it_handles_missing_folder_gracefully(): void
+    {
+        $user = User::factory()->create(['email' => 'user@example.com']);
+        $password = 'secret';
+        $nonExistentFolder = 'NON_EXISTENT';
+        
+        // Mock IMAP Client
+        $clientMock = Mockery::mock('Webklex\PHPIMAP\Client');
+        $clientMock->username = $user->email;
+        $clientMock->password = $password;
+
+        $clientMock->shouldReceive('connect')->once()->andReturn($clientMock);
+        $clientMock->shouldReceive('getFolder')->with($nonExistentFolder)->once()->andReturn(null);
+        
+        Client::shouldReceive('account')->with('default')->once()->andReturn($clientMock);
+
+        Log::shouldReceive('warning')->once()->with(Mockery::pattern("/Folder $nonExistentFolder not found/"));
+
+        // Run Job with missing folder
+        ImapSyncJob::dispatchSync($user, $password, $nonExistentFolder);
+        
+        // Should not throw exception
+        $this->assertTrue(true);
+    }
+
     public function test_it_logs_error_on_sync_failure(): void
     {
         $user = User::factory()->create(['email' => 'user@example.com']);

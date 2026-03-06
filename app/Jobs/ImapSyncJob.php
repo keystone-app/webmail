@@ -40,6 +40,12 @@ class ImapSyncJob implements ShouldQueue
             $client->connect();
 
             $folder = $client->getFolder($this->folder);
+            
+            if (!$folder) {
+                Log::warning("Folder {$this->folder} not found for user {$this->user->id}");
+                return;
+            }
+
             $messages = $folder->query()->all()->get();
 
             foreach ($messages as $message) {
