@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -18,6 +19,7 @@ class MailMessage extends Mailable
     public function __construct(
         public $subject,
         public $body,
+        public $attachmentsData = [],
     ) {
         $this->subject($subject);
     }
@@ -49,6 +51,10 @@ class MailMessage extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return array_map(function ($file) {
+            return Attachment::fromPath($file['path'])
+                ->as($file['filename'])
+                ->withMime($file['content_type']);
+        }, $this->attachmentsData);
     }
 }

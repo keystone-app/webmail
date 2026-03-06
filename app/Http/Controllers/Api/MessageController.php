@@ -8,6 +8,7 @@ use App\Mail\MailMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class MessageController extends Controller
 {
@@ -23,9 +24,26 @@ class MessageController extends Controller
             'bcc' => 'nullable|string',
             'subject' => 'required|string',
             'body' => 'required|string',
+            'attachments.*' => 'nullable|file|max:10240', // 10MB max
         ]);
 
-        $mailable = new MailMessage($validated['subject'], $validated['body']);
+        $user = $request->user();
+        $attachmentsData = [];
+
+        // Handle temporary uploads
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('temp_attachments', 'local');
+                $attachmentsData[] = [
+                    'path' => storage_path('app/' . $path),
+                    'filename' => $file->getClientOriginalName(),
+                    'content_type' => $file->getClientMimeType(),
+                    'temp_path' => $path,
+                ];
+            }
+        }
+
+        $mailable = new MailMessage($validated['subject'], $validated['body'], $attachmentsData);
 
         $mail = Mail::to(explode(',', $validated['to']));
 
@@ -37,16 +55,23 @@ class MessageController extends Controller
             $mail->bcc(explode(',', $validated['bcc']));
         }
 
-        $mail->send($mailable);
+        try {
+            $mail->send($mailable);
 
-        // Delete draft if it exists and belongs to the user
-        if (!empty($validated['draft_id'])) {
-            $draft = Draft::find($validated['draft_id']);
-            if ($draft && $draft->user_id === Auth::id()) {
-                $draft->delete();
+            // Delete draft if it exists and belongs to the user
+            if (!empty($validated['draft_id'])) {
+                $draft = Draft::find($validated['draft_id']);
+                if ($draft && $draft->user_id === Auth::id()) {
+                    $draft->delete();
+                }
+            }
+
+            return response()->json(['message' => 'Email sent successfully']);
+        } finally {
+            // Clean up temp files
+            foreach ($attachmentsData as $data) {
+                Storage::disk('local')->delete($data['temp_path']);
             }
         }
-
-        return response()->json(['message' => 'Email sent successfully']);
     }
 }
