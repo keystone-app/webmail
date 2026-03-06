@@ -4,10 +4,10 @@
 - [x] Task: Create Email Model and Migration 8cded50
     - [x] Create `Email` Eloquent model and migration (fields: user_id, imap_uid, folder, subject, from, to, date, body, is_read).
     - [x] Write tests ensuring the `Email` model has the correct relationships (belongs to User).
-- [ ] Task: Implement IMAP Sync Job
-    - [ ] Write failing tests for an `ImapSyncJob` that fetches emails and saves them to the DB.
-    - [ ] Implement `ImapSyncJob` using `webklex/laravel-imap`.
-    - [ ] Dispatch the job upon successful user login.
+- [x] Task: Implement IMAP Sync Job 35cc54d
+    - [x] Write failing tests for an `ImapSyncJob` that fetches emails and saves them to the DB.
+    - [x] Implement `ImapSyncJob` using `webklex/laravel-imap`.
+    - [x] Dispatch the job upon successful user login.
 - [ ] Task: Create API Endpoints
     - [ ] Write feature tests for `/api/emails` and `/api/emails/{id}` endpoints.
     - [ ] Implement `Api\EmailController` to return paginated emails and individual email details for the authenticated user.
