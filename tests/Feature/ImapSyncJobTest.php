@@ -174,14 +174,15 @@ class ImapSyncJobTest extends TestCase
         $user = User::factory()->create(['email' => 'user@example.com']);
         $password = 'wrong';
 
+        Log::shouldReceive('warning')->times(3);
         Log::shouldReceive('error')->once();
 
         $clientMock = Mockery::mock('Webklex\PHPIMAP\Client');
         $clientMock->username = $user->email;
         $clientMock->password = $password;
-        $clientMock->shouldReceive('connect')->once()->andThrow(new \Exception('Sync error'));
+        $clientMock->shouldReceive('connect')->times(3)->andThrow(new \Exception('Sync error'));
         
-        Client::shouldReceive('account')->with('default')->once()->andReturn($clientMock);
+        Client::shouldReceive('account')->with('default')->andReturn($clientMock);
 
         $this->expectException(\Exception::class);
 
