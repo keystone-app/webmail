@@ -21,8 +21,8 @@
 - [x] Task: Integrate Tiptap Editor 75aba14
     - [x] Embed the rich text editor into the `Composer.svelte` component.
     - [x] Ensure formatting toolbar is functional.
-- [ ] Task: Auto-save Draft Logic
-    - [ ] Implement debounced auto-save logic to the `Api\DraftController`.
+- [x] Task: Auto-save Draft Logic fc87d55
+    - [x] Implement debounced auto-save logic to the `Api\DraftController`.
 - [ ] Task: Conductor - User Manual Verification 'Frontend Composer UI' (Protocol in workflow.md)
 
 ## Phase 3: Sending Logic & Integration
