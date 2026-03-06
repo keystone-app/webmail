@@ -8,9 +8,9 @@
     - [x] Write failing tests for an `ImapSyncJob` that fetches emails and saves them to the DB.
     - [x] Implement `ImapSyncJob` using `webklex/laravel-imap`.
     - [x] Dispatch the job upon successful user login.
-- [ ] Task: Create API Endpoints
-    - [ ] Write feature tests for `/api/emails` and `/api/emails/{id}` endpoints.
-    - [ ] Implement `Api\EmailController` to return paginated emails and individual email details for the authenticated user.
+- [x] Task: Create API Endpoints 7352a82
+    - [x] Write feature tests for `/api/emails` and `/api/emails/{id}` endpoints.
+    - [x] Implement `Api\EmailController` to return paginated emails and individual email details for the authenticated user.
 - [ ] Task: Conductor - User Manual Verification 'Database and Backend Sync Logic' (Protocol in workflow.md)
 
 ## Phase 2: Frontend SPA Infrastructure
