@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use App\Models\Draft;
 use App\Models\User;
 use App\Mail\MailMessage;
+use App\Jobs\ImapSyncJob;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +23,7 @@ class MessageSendApiTest extends TestCase
     public function test_authenticated_user_can_send_an_email_and_save_to_sent(): void
     {
         Mail::fake();
+        Queue::fake();
         $user = User::factory()->create();
         
         // Mock IMAP Client
@@ -51,6 +54,10 @@ class MessageSendApiTest extends TestCase
         Mail::assertSent(MailMessage::class, function ($mail) use ($user) {
             return $mail->hasTo('recipient@example.com') &&
                    $mail->fromData['email'] === $user->email;
+        });
+
+        Queue::assertPushed(ImapSyncJob::class, function ($job) use ($user) {
+            return $job->user->id === $user->id && $job->folder === 'enviadas';
         });
     }
 

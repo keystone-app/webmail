@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Draft;
 use App\Mail\MailMessage;
+use App\Jobs\ImapSyncJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -75,7 +76,12 @@ class MessageController extends Controller
             $mail->send($mailable);
 
             // Save to IMAP Sent folder
-            $this->saveToImapSent($user, $mailable);
+            $sentFolderName = $this->saveToImapSent($user, $mailable);
+
+            // Trigger immediate sync of the Sent folder
+            if ($sentFolderName && $password) {
+                ImapSyncJob::dispatch($user, $password, $sentFolderName);
+            }
 
             // Delete draft if it exists and belongs to the user
             if (!empty($validated['draft_id'])) {
@@ -140,11 +146,14 @@ class MessageController extends Controller
                 Log::debug("Found Sent folder: {$sentFolder->path}. Appending message...");
                 $sentFolder->appendMessage($mailable->render());
                 Log::info("Successfully saved message to IMAP Sent folder for user {$user->id}");
+                return $sentFolder->path;
             } else {
                 Log::warning("Could not find a Sent folder for user {$user->id} among: " . implode(', ', $folderPaths));
+                return null;
             }
         } catch (\Exception $e) {
             Log::error("Failed to save message to IMAP Sent folder for user {$user->id}: " . $e->getMessage());
+            return null;
         }
     }
 }
