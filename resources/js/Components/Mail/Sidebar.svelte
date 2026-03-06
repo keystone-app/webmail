@@ -1,7 +1,6 @@
 <script>
-    let { user } = $props();
+    let { user, activeFolder = $bindable('Inbox') } = $props();
     let folders = ['Inbox', 'Sent', 'Drafts', 'Trash'];
-    let activeFolder = $state('Inbox');
 </script>
 
 <aside class="w-64 bg-white border-r border-gray-200 flex flex-col hidden md:flex h-full">
