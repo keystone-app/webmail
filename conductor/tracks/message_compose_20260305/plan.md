@@ -1,6 +1,6 @@
 # Implementation Plan: Implement Message Compose
 
-## Phase 1: Backend Infrastructure (SMTP & Models)
+## Phase 1: Backend Infrastructure (SMTP & Models) [checkpoint: 8ea8840]
 - [x] Task: SMTP Configuration da7c5b4
     - [x] Update `.env.example` and `.env` with SMTP variables.
     - [x] Verify `config/mail.php` is correctly set up for multiple drivers if needed.
