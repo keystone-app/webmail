@@ -7,9 +7,9 @@
 - [x] Task: Drafts Model and Migration bf0110e
     - [x] Create `Draft` model and migration (fields: user_id, to, cc, bcc, subject, body, attachments_metadata).
     - [x] Write unit tests for the `Draft` model.
-- [ ] Task: Drafts API Endpoints
-    - [ ] Write failing feature tests for saving and updating drafts.
-    - [ ] Implement `Api\DraftController` with `store` and `update` methods.
+- [x] Task: Drafts API Endpoints 1ef84d6
+    - [x] Write failing feature tests for saving and updating drafts.
+    - [x] Implement `Api\DraftController` with `store` and `update` methods.
 - [ ] Task: Conductor - User Manual Verification 'Backend Infrastructure' (Protocol in workflow.md)
 
 ## Phase 2: Frontend Composer UI
