@@ -71,7 +71,7 @@
 
         <div class="flex-1 flex overflow-hidden">
             <!-- Email List now takes full width -->
-            <EmailList {emails} bind:selectedEmail isFullWidth={true} />
+            <EmailList {emails} bind:selectedEmail isFullWidth={true} {isLoading} />
         </div>
     </div>
 </div>
