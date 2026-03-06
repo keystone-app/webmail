@@ -1,7 +1,11 @@
 <script>
     let { csrfToken, errors = {}, old = {} } = $props();
+    
+    // Ensure errors and old are at least empty objects if they are passed as null
+    const safeErrors = $derived(errors || {});
+    const safeOld = $derived(old || {});
 
-    let email = $state(old.email || '');
+    let email = $state(safeOld.email || '');
     let password = $state('');
 </script>
 
@@ -20,10 +24,10 @@
                     name="email" 
                     bind:value={email}
                     required 
-                    class="mt-1 block w-full px-3 py-2 border {errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    class="mt-1 block w-full px-3 py-2 border {safeErrors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 >
-                {#if errors.email}
-                    <p class="mt-2 text-sm text-red-600">{errors.email}</p>
+                {#if safeErrors.email}
+                    <p class="mt-2 text-sm text-red-600">{safeErrors.email}</p>
                 {/if}
             </div>
 
