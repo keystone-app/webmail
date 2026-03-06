@@ -13,10 +13,10 @@
 - [x] Task: Create IMAP Auth Service e75fcf4
     - [x] Write failing unit tests for IMAP credential verification
     - [x] Implement IMAP authentication service using `webklex/laravel-imap`
-- [ ] Task: User Persistence & Session
-    - [ ] Write failing feature tests for user creation/update on login
-    - [ ] Implement logic to find or create a local `User` record
-    - [ ] Implement Laravel session-based authentication for the IMAP user
+- [x] Task: User Persistence & Session 1c8b5a0
+    - [x] Write failing feature tests for user creation/update on login
+    - [x] Implement logic to find or create a local `User` record
+    - [x] Implement Laravel session-based authentication for the IMAP user
 - [ ] Task: Logout Functionality
     - [ ] Write failing tests for logout route
     - [ ] Implement logout logic and route
