@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\ImapAuthService;
+use App\Jobs\ImapSyncJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -39,6 +40,7 @@ class LoginController extends Controller
     {
         return view('app', [
             'props' => [
+                'component' => 'Login',
                 'csrfToken' => csrf_token(),
                 'errors' => $request->session()->get('errors') ? $request->session()->get('errors')->getBag('default')->first('email') : null,
                 'old' => $request->session()->getOldInput(),
@@ -72,6 +74,9 @@ class LoginController extends Controller
             Auth::login($user);
 
             $request->session()->regenerate();
+
+            // Dispatch IMAP sync job
+            ImapSyncJob::dispatch($user, $credentials['password']);
 
             return redirect()->intended('/home');
         }
