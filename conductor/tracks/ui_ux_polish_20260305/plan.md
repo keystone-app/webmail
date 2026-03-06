@@ -19,10 +19,10 @@
 - [ ] Task: Conductor - User Manual Verification 'Email List and Contextual Actions' (Protocol in workflow.md)
 
 ## Phase 3: Message View and UX Patterns
-- [ ] Task: Refine Reading Pane Modal
-    - [ ] Write failing tests for Modal typography and action buttons.
-    - [ ] Update `ReadingPane.svelte` and the modal container in `App.svelte` with improved design.
-- [ ] Task: Implement Keyboard Shortcuts
-    - [ ] Write failing tests for 'j', 'k', and 'esc' key events.
-    - [ ] Implement global keyboard listener in `App.svelte` to handle navigation and modal closure.
+- [x] Task: Refine Reading Pane Modal 58825d9
+    - [x] Write failing tests for Modal typography and action buttons.
+    - [x] Update `ReadingPane.svelte` and the modal container in `App.svelte` with improved design.
+- [x] Task: Implement Keyboard Shortcuts a52b752
+    - [x] Write failing tests for 'j', 'k', and 'esc' key events.
+    - [x] Implement global keyboard listener in `App.svelte` to handle navigation and modal closure.
 - [ ] Task: Conductor - User Manual Verification 'Message View and UX Patterns' (Protocol in workflow.md)
