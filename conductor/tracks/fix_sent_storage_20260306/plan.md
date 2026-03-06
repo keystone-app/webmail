@@ -2,7 +2,7 @@
 
 ## Phase 1: Core Logic Enhancements
 
-- [ ] Task: Refactor `ImapSyncJob` to support custom folders.
+- [x] Task: Refactor `ImapSyncJob` to support custom folders. [1967e85]
     - [ ] Create/Update `ImapSyncJobTest.php` to verify syncing from a custom folder (e.g., 'INBOX.enviadas').
     - [ ] Implement `folder` parameter and logic in `ImapSyncJob.php`.
 - [ ] Task: Update `MessageController` for improved Sent folder targeting.
