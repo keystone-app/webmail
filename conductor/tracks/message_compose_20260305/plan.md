@@ -4,9 +4,9 @@
 - [x] Task: SMTP Configuration da7c5b4
     - [x] Update `.env.example` and `.env` with SMTP variables.
     - [x] Verify `config/mail.php` is correctly set up for multiple drivers if needed.
-- [ ] Task: Drafts Model and Migration
-    - [ ] Create `Draft` model and migration (fields: user_id, to, cc, bcc, subject, body, attachments_metadata).
-    - [ ] Write unit tests for the `Draft` model.
+- [x] Task: Drafts Model and Migration bf0110e
+    - [x] Create `Draft` model and migration (fields: user_id, to, cc, bcc, subject, body, attachments_metadata).
+    - [x] Write unit tests for the `Draft` model.
 - [ ] Task: Drafts API Endpoints
     - [ ] Write failing feature tests for saving and updating drafts.
     - [ ] Implement `Api\DraftController` with `store` and `update` methods.
