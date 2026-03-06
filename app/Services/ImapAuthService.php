@@ -20,8 +20,8 @@ class ImapAuthService
     {
         try {
             $client = Client::account('default');
-            $client->setUsername($email);
-            $client->setPassword($password);
+            $client->username = $email;
+            $client->password = $password;
             
             $client->connect();
             

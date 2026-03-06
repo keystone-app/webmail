@@ -16,14 +16,16 @@ class ImapAuthServiceTest extends TestCase
 
         // Mock the Client facade to simulate a successful connection
         $client = Mockery::mock('Webklex\PHPIMAP\Client');
-        $client->shouldReceive('setUsername')->with($email)->once()->andReturn($client);
-        $client->shouldReceive('setPassword')->with($password)->once()->andReturn($client);
+        $client->username = '';
+        $client->password = '';
         $client->shouldReceive('connect')->once()->andReturn($client);
         
         Client::shouldReceive('account')->with('default')->once()->andReturn($client);
 
         $service = new ImapAuthService();
         $this->assertTrue($service->authenticate($email, $password));
+        $this->assertEquals($email, $client->username);
+        $this->assertEquals($password, $client->password);
     }
 
     public function test_authenticate_returns_false_for_invalid_credentials(): void
@@ -33,13 +35,15 @@ class ImapAuthServiceTest extends TestCase
 
         // Mock the Client facade to simulate a connection failure
         $client = Mockery::mock('Webklex\PHPIMAP\Client');
-        $client->shouldReceive('setUsername')->with($email)->once()->andReturn($client);
-        $client->shouldReceive('setPassword')->with($password)->once()->andReturn($client);
+        $client->username = '';
+        $client->password = '';
         $client->shouldReceive('connect')->once()->andThrow(new \Exception('Connection failed'));
         
         Client::shouldReceive('account')->with('default')->once()->andReturn($client);
 
         $service = new ImapAuthService();
         $this->assertFalse($service->authenticate($email, $password));
+        $this->assertEquals($email, $client->username);
+        $this->assertEquals($password, $client->password);
     }
 }
