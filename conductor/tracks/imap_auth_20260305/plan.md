@@ -1,0 +1,35 @@
+# Implementation Plan: Implement IMAP Authentication
+
+## Phase 1: Environment Setup
+- [ ] Task: Install dependencies
+    - [ ] Run `composer require webklex/laravel-imap`
+    - [ ] Publish the configuration file: `php artisan vendor:publish --provider="Webklex\IMAP\Providers\LaravelServiceProvider"`
+- [ ] Task: Configuration setup
+    - [ ] Update `.env.example` and `.env` with IMAP settings (Host, Port, Encryption)
+    - [ ] Verify `config/imap.php` uses these environment variables
+- [ ] Task: Conductor - User Manual Verification 'Environment Setup' (Protocol in workflow.md)
+
+## Phase 2: Core Authentication Logic
+- [ ] Task: Create IMAP Auth Service
+    - [ ] Write failing unit tests for IMAP credential verification
+    - [ ] Implement IMAP authentication service using `webklex/laravel-imap`
+- [ ] Task: User Persistence & Session
+    - [ ] Write failing feature tests for user creation/update on login
+    - [ ] Implement logic to find or create a local `User` record
+    - [ ] Implement Laravel session-based authentication for the IMAP user
+- [ ] Task: Logout Functionality
+    - [ ] Write failing tests for logout route
+    - [ ] Implement logout logic and route
+- [ ] Task: Conductor - User Manual Verification 'Core Authentication Logic' (Protocol in workflow.md)
+
+## Phase 3: Frontend & Integration
+- [ ] Task: Create Login UI
+    - [ ] Develop Svelte 5 login form with Tailwind CSS 4
+    - [ ] Implement form validation and display of authentication errors
+- [ ] Task: Route Integration
+    - [ ] Create `Auth\LoginController` to handle authentication requests
+    - [ ] Define routes in `routes/web.php` for login and logout
+- [ ] Task: Full Authentication Flow Verification
+    - [ ] Write integration tests for the complete login/logout journey
+    - [ ] Verify CSRF protection and secure session handling
+- [ ] Task: Conductor - User Manual Verification 'Frontend & Integration' (Protocol in workflow.md)
