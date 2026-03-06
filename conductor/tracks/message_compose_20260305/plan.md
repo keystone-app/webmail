@@ -15,9 +15,9 @@
 ## Phase 2: Frontend Composer UI
 - [x] Task: Install Editor Dependencies da4c331
     - [x] Run `npm install @tiptap/core @tiptap/starter-kit @tiptap/pm svelte-tiptap`.
-- [ ] Task: Create Composer Component
-    - [ ] Create `resources/js/Components/Mail/Composer.svelte` modal component.
-    - [ ] Implement fields for To, CC (toggle), BCC (toggle), and Subject.
+- [x] Task: Create Composer Component ce9445f
+    - [x] Create `resources/js/Components/Mail/Composer.svelte` modal component.
+    - [x] Implement fields for To, CC (toggle), BCC (toggle), and Subject.
 - [ ] Task: Integrate Tiptap Editor
     - [ ] Embed the rich text editor into the `Composer.svelte` component.
     - [ ] Ensure formatting toolbar is functional.
