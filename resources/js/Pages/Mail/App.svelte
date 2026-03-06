@@ -27,6 +27,16 @@
         }
     }
 
+    async function fetchEmailDetails(id) {
+        try {
+            const response = await fetch(`/api/emails/${id}`);
+            const result = await response.json();
+            selectedEmail = result.data;
+        } catch (error) {
+            console.error('Failed to fetch email details:', error);
+        }
+    }
+
     onMount(() => {
         fetchEmails(activeFolder);
     });
@@ -36,9 +46,12 @@
         fetchEmails(activeFolder);
     });
 
-    // Watch for selectedEmail changes to open the modal
+    // Watch for selectedEmail changes to open the modal and fetch details
     $effect(() => {
-        if (selectedEmail) {
+        if (selectedEmail && !selectedEmail.body) {
+            fetchEmailDetails(selectedEmail.id);
+            isModalOpen = true;
+        } else if (selectedEmail) {
             isModalOpen = true;
         }
     });

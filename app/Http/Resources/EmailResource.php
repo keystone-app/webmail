@@ -5,6 +5,8 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use Illuminate\Support\Str;
+
 class EmailResource extends JsonResource
 {
     /**
@@ -22,7 +24,8 @@ class EmailResource extends JsonResource
             'from' => $this->from,
             'to' => $this->to,
             'date' => $this->date->toIso8601String(),
-            'body' => $this->body,
+            'body' => $this->when($request->route('email'), $this->body),
+            'body_excerpt' => Str::limit(strip_tags($this->body), 100),
             'is_read' => $this->is_read,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
