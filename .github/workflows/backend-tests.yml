@@ -1,0 +1,69 @@
+name: backend-tests
+
+on:
+  push:
+    branches:
+      - master # Triggers when a PR is merged
+  pull_request:
+    types: [opened, synchronize, reopened] # Runs on all PR updates
+    branches:
+      - master
+
+# Optional: Stop old runs if you push a new commit to the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.5'
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imap
+        coverage: pcov # Much faster than xdebug
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: |
+        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-interaction --no-progress --no-scripts
+
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    - name: Generate key
+      run: php artisan key:generate
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '25' # Or your preferred version
+
+    - name: Install NPM dependencies
+      run: npm install
+
+    - name: Build frontend assets
+      run: npm run build
+
+    - name: Execute tests
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: ":memory:" # Faster than file-based sqlite
+      run: php artisan test
+
