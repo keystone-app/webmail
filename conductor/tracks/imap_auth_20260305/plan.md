@@ -9,7 +9,7 @@
     - [x] Verify `config/imap.php` uses these environment variables
 - [ ] Task: Conductor - User Manual Verification 'Environment Setup' (Protocol in workflow.md)
 
-## Phase 2: Core Authentication Logic
+## Phase 2: Core Authentication Logic [checkpoint: 7492adf]
 - [x] Task: Create IMAP Auth Service e75fcf4
     - [x] Write failing unit tests for IMAP credential verification
     - [x] Implement IMAP authentication service using `webklex/laravel-imap`
