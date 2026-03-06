@@ -74,6 +74,7 @@ class LoginController extends Controller
             Auth::login($user);
 
             $request->session()->regenerate();
+            $request->session()->put('imap_password', $credentials['password']);
 
             // Dispatch IMAP sync job
             ImapSyncJob::dispatch($user, $credentials['password']);

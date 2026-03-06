@@ -12,9 +12,43 @@ use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
+use Webklex\IMAP\Facades\Client;
+use Mockery;
+
 class MessageSendApiTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_authenticated_user_can_send_an_email_and_save_to_sent(): void
+    {
+        Mail::fake();
+        $user = User::factory()->create();
+        
+        // Mock IMAP Client
+        $clientMock = Mockery::mock('Webklex\PHPIMAP\Client');
+        $clientMock->username = $user->email;
+        $clientMock->password = 'password';
+        
+        $folderMock = Mockery::mock('Webklex\PHPIMAP\Folder');
+        $folderMock->shouldReceive('appendMessage')->once();
+
+        $clientMock->shouldReceive('connect')->once()->andReturn($clientMock);
+        $clientMock->shouldReceive('getFolder')->with('Sent')->once()->andReturn($folderMock);
+        
+        Client::shouldReceive('account')->with('default')->once()->andReturn($clientMock);
+
+        $response = $this->actingAs($user)
+            ->withSession(['imap_password' => 'password'])
+            ->postJson('/api/messages/send', [
+                'to' => 'recipient@example.com',
+                'subject' => 'Test Subject',
+                'body' => '<p>Test Body</p>',
+            ]);
+
+        $response->assertStatus(200);
+        
+        Mail::assertSent(MailMessage::class);
+    }
 
     public function test_authenticated_user_can_send_an_email_with_attachments(): void
     {
