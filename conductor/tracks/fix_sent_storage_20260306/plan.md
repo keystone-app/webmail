@@ -17,8 +17,8 @@
     - [x] Implement the `ImapSyncJob::dispatch()` call in `MessageController@send`.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Integration & Triggering' (Protocol in workflow.md)
 
-## Phase 3: Final Verification
+## Phase 3: Final Verification [checkpoint: 9a0c33e]
 
-- [~] Task: End-to-end verification.
-    - [ ] Perform a manual test of sending an email and verifying its appearance in the database after the background sync.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Final Verification' (Protocol in workflow.md)
+- [x] Task: End-to-end verification.
+    - [x] Perform a manual test of sending an email and verifying its appearance in the database after the background sync.
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Final Verification' (Protocol in workflow.md)
