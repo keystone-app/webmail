@@ -1,9 +1,9 @@
 # Implementation Plan: Implement Message Compose
 
 ## Phase 1: Backend Infrastructure (SMTP & Models)
-- [ ] Task: SMTP Configuration
-    - [ ] Update `.env.example` and `.env` with SMTP variables.
-    - [ ] Verify `config/mail.php` is correctly set up for multiple drivers if needed.
+- [x] Task: SMTP Configuration da7c5b4
+    - [x] Update `.env.example` and `.env` with SMTP variables.
+    - [x] Verify `config/mail.php` is correctly set up for multiple drivers if needed.
 - [ ] Task: Drafts Model and Migration
     - [ ] Create `Draft` model and migration (fields: user_id, to, cc, bcc, subject, body, attachments_metadata).
     - [ ] Write unit tests for the `Draft` model.
