@@ -1,9 +1,9 @@
 # Implementation Plan: Implement Inbox View (Svelte SPA)
 
 ## Phase 1: Database and Backend Sync Logic
-- [ ] Task: Create Email Model and Migration
-    - [ ] Create `Email` Eloquent model and migration (fields: user_id, imap_uid, folder, subject, from, to, date, body, is_read).
-    - [ ] Write tests ensuring the `Email` model has the correct relationships (belongs to User).
+- [x] Task: Create Email Model and Migration 8cded50
+    - [x] Create `Email` Eloquent model and migration (fields: user_id, imap_uid, folder, subject, from, to, date, body, is_read).
+    - [x] Write tests ensuring the `Email` model has the correct relationships (belongs to User).
 - [ ] Task: Implement IMAP Sync Job
     - [ ] Write failing tests for an `ImapSyncJob` that fetches emails and saves them to the DB.
     - [ ] Implement `ImapSyncJob` using `webklex/laravel-imap`.
