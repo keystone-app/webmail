@@ -14,8 +14,8 @@
 - [ ] Task: Conductor - User Manual Verification 'Database and Backend Sync Logic' (Protocol in workflow.md)
 
 ## Phase 2: Frontend SPA Infrastructure
-- [ ] Task: Install Svelte Router
-    - [ ] Run `npm install svelte-routing` (or similar appropriate router).
+- [x] Task: Install Svelte Router 4140236
+    - [x] Run `npm install svelte-routing` (or similar appropriate router).
 - [ ] Task: Setup Main App Layout
     - [ ] Create `resources/js/Pages/Mail/App.svelte` as the main layout component.
     - [ ] Update `resources/js/app.js` to mount the new SPA layout instead of just Login on the `/home` route.
