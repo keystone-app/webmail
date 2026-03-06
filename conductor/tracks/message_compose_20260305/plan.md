@@ -12,7 +12,7 @@
     - [x] Implement `Api\DraftController` with `store` and `update` methods.
 - [ ] Task: Conductor - User Manual Verification 'Backend Infrastructure' (Protocol in workflow.md)
 
-## Phase 2: Frontend Composer UI
+## Phase 2: Frontend Composer UI [checkpoint: 2cb2848]
 - [x] Task: Install Editor Dependencies da4c331
     - [x] Run `npm install @tiptap/core @tiptap/starter-kit @tiptap/pm svelte-tiptap`.
 - [x] Task: Create Composer Component ce9445f
