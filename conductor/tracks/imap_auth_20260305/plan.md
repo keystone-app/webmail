@@ -1,6 +1,6 @@
 # Implementation Plan: Implement IMAP Authentication
 
-## Phase 1: Environment Setup
+## Phase 1: Environment Setup [checkpoint: e0e6f1c]
 - [x] Task: Install dependencies 6997aec
     - [x] Run `composer require webklex/laravel-imap`
     - [x] Publish the configuration file: `php artisan vendor:publish --provider="Webklex\IMAP\Providers\LaravelServiceProvider"`
