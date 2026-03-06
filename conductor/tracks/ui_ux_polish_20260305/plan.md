@@ -1,6 +1,6 @@
 # Implementation Plan: Improve Layout and Design UI/UX
 
-## Phase 1: Authentication UI and App Shell Polish
+## Phase 1: Authentication UI and App Shell Polish [checkpoint: 9ba773a]
 - [x] Task: Polishing the Login screen d70f427
     - [x] Write failing unit/component tests for Login design updates.
     - [x] Refactor `Login.svelte` with high-contrast elements and improved layout.
