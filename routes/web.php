@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AttachmentController;
 use App\Http\Controllers\Api\DraftController;
 use App\Http\Controllers\Api\EmailController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\HomeController;
@@ -22,8 +23,11 @@ Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
 Route::middleware('auth')->prefix('api')->group(function () {
     Route::get('/emails', [EmailController::class, 'index']);
     Route::get('/emails/{email}', [EmailController::class, 'show']);
+    // Note: attachments.show is needed for proxying inline images/downloads
     Route::get('/attachments/{attachment}', [AttachmentController::class, 'show'])->name('attachments.show');
     
     Route::post('/drafts', [DraftController::class, 'store']);
     Route::put('/drafts/{draft}', [DraftController::class, 'update']);
+    
+    Route::post('/messages/send', [MessageController::class, 'send']);
 });
