@@ -15,10 +15,10 @@
 
 ## Phase 2: Core Refactoring
 
-- [ ] Task: Integrate new services into `ImapSyncJob`.
-    - [ ] Update `ImapSyncJobTest` to use mocks or verify integration.
-    - [ ] Refactor `ImapSyncJob.php` to use the new service abstractions.
-- [ ] Task: Enhance Error Handling & Retries.
+- [x] Task: Integrate new services into `ImapSyncJob`. [1b1e1b3]
+    - [x] Update `ImapSyncJobTest` to use mocks or verify integration.
+    - [x] Refactor `ImapSyncJob.php` to use the new service abstractions.
+- [~] Task: Enhance Error Handling & Retries.
     - [ ] Write tests for resilient sync (handling `Connection reset by peer`, etc.).
     - [ ] Implement retry logic and granular logging in the job.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Refactoring' (Protocol in workflow.md)
