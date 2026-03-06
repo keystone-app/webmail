@@ -3,7 +3,8 @@
 ## Language and Frameworks
 - **Backend:** PHP 8.5 with [Laravel 12](https://laravel.com/).
 - **Frontend:** [Svelte 5](https://svelte.dev/) with [Tailwind CSS 4](https://tailwindcss.com/), [svelte-routing](https://github.com/EmilTholin/svelte-routing), and Vite.
-- **Core Logic:** IMAP authentication and message retrieval.
+- **Core Logic:** IMAP authentication, message retrieval, and SMTP email dispatch.
+- **Editor:** [Tiptap](https://tiptap.dev/) for rich text message composition.
 - **Background Tasks:** [Laravel Queues](https://laravel.com/docs/12.x/queues) for asynchronous IMAP synchronization.
 
 ## Data Management
