@@ -17,9 +17,9 @@
     - [x] Write failing feature tests for user creation/update on login
     - [x] Implement logic to find or create a local `User` record
     - [x] Implement Laravel session-based authentication for the IMAP user
-- [ ] Task: Logout Functionality
-    - [ ] Write failing tests for logout route
-    - [ ] Implement logout logic and route
+- [x] Task: Logout Functionality 27e76a2
+    - [x] Write failing tests for logout route
+    - [x] Implement logout logic and route
 - [ ] Task: Conductor - User Manual Verification 'Core Authentication Logic' (Protocol in workflow.md)
 
 ## Phase 3: Frontend & Integration
