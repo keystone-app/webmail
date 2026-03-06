@@ -16,9 +16,9 @@
 ## Phase 2: Frontend SPA Infrastructure
 - [x] Task: Install Svelte Router 4140236
     - [x] Run `npm install svelte-routing` (or similar appropriate router).
-- [ ] Task: Setup Main App Layout
-    - [ ] Create `resources/js/Pages/Mail/App.svelte` as the main layout component.
-    - [ ] Update `resources/js/app.js` to mount the new SPA layout instead of just Login on the `/home` route.
+- [x] Task: Setup Main App Layout e180052
+    - [x] Create `resources/js/Pages/Mail/App.svelte` as the main layout component.
+    - [x] Update `resources/js/app.js` to mount the new SPA layout instead of just Login on the `/home` route.
 - [ ] Task: Create Basic Components
     - [ ] Create placeholder components for `Sidebar.svelte`, `Toolbar.svelte`, `EmailList.svelte`, and `ReadingPane.svelte`.
     - [ ] Assemble these components into a responsive layout using Tailwind CSS 4 within `App.svelte`.
