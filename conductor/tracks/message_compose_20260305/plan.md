@@ -13,8 +13,8 @@
 - [ ] Task: Conductor - User Manual Verification 'Backend Infrastructure' (Protocol in workflow.md)
 
 ## Phase 2: Frontend Composer UI
-- [ ] Task: Install Editor Dependencies
-    - [ ] Run `npm install @tiptap/core @tiptap/starter-kit @tiptap/pm svelte-tiptap`.
+- [x] Task: Install Editor Dependencies da4c331
+    - [x] Run `npm install @tiptap/core @tiptap/starter-kit @tiptap/pm svelte-tiptap`.
 - [ ] Task: Create Composer Component
     - [ ] Create `resources/js/Components/Mail/Composer.svelte` modal component.
     - [ ] Implement fields for To, CC (toggle), BCC (toggle), and Subject.
