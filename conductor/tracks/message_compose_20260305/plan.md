@@ -26,14 +26,14 @@
 - [ ] Task: Conductor - User Manual Verification 'Frontend Composer UI' (Protocol in workflow.md)
 
 ## Phase 3: Sending Logic & Integration
-- [ ] Task: Mailer Service and API
-    - [ ] Write failing feature tests for the sending endpoint.
-    - [ ] Implement `Api\MessageController@send` to handle final submission.
-- [ ] Task: Attachment Handling
-    - [ ] Implement backend logic to attach uploaded files to the outgoing mail.
+- [x] Task: Mailer Service and API b485c4e
+    - [x] Write failing feature tests for the sending endpoint.
+    - [x] Implement `Api\MessageController@send` to handle final submission.
+- [x] Task: Attachment Handling 52d7522
+    - [x] Implement backend logic to attach uploaded files to the outgoing mail.
     - [ ] Implement frontend progress bar for uploads.
-- [ ] Task: IMAP "Save to Sent" Integration
-    - [ ] Implement logic to append the sent message to the user's IMAP "Sent" folder.
+- [x] Task: IMAP "Save to Sent" Integration e222eac
+    - [x] Implement logic to append the sent message to the user's IMAP "Sent" folder.
 - [ ] Task: End-to-End Polish
     - [ ] Add success/error notifications for sending and saving.
     - [ ] Verify keyboard shortcuts (e.g., Ctrl+Enter to send).
