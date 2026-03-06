@@ -13,7 +13,7 @@
     - [x] Implement `ImapMessageRepository` to handle database interactions.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Foundation & Abstraction' (Protocol in workflow.md)
 
-## Phase 2: Core Refactoring
+## Phase 2: Core Refactoring [checkpoint: cbecddb]
 
 - [x] Task: Integrate new services into `ImapSyncJob`. [1b1e1b3]
     - [x] Update `ImapSyncJobTest` to use mocks or verify integration.
@@ -21,7 +21,7 @@
 - [x] Task: Enhance Error Handling & Retries. [0ac84b1]
     - [x] Write tests for resilient sync (handling `Connection reset by peer`, etc.).
     - [x] Implement retry logic and granular logging in the job.
-- [~] Task: Conductor - User Manual Verification 'Phase 2: Core Refactoring' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Core Refactoring' (Protocol in workflow.md)
 
 ## Phase 3: Final Verification
 
