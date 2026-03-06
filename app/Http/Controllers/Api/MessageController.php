@@ -128,7 +128,8 @@ class MessageController extends Controller
             Log::debug("Available IMAP folder paths for user {$user->id}: " . implode(', ', $folderPaths));
 
             // Try to find the Sent folder with common full paths or generic name
-            $sentFolder = $client->getFolderByPath('INBOX.enviadas')
+            $sentFolder = $client->getFolderByPath('enviadas')
+                ?? $client->getFolderByPath('INBOX.enviadas')
                 ?? $client->getFolderByPath('INBOX.Sent')
                 ?? $client->getFolderByPath('Sent')
                 ?? $client->getFolderByPath('INBOX/Sent')
