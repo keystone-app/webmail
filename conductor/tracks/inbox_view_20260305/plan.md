@@ -19,9 +19,9 @@
 - [x] Task: Setup Main App Layout e180052
     - [x] Create `resources/js/Pages/Mail/App.svelte` as the main layout component.
     - [x] Update `resources/js/app.js` to mount the new SPA layout instead of just Login on the `/home` route.
-- [ ] Task: Create Basic Components
-    - [ ] Create placeholder components for `Sidebar.svelte`, `Toolbar.svelte`, `EmailList.svelte`, and `ReadingPane.svelte`.
-    - [ ] Assemble these components into a responsive layout using Tailwind CSS 4 within `App.svelte`.
+- [x] Task: Create Basic Components 20d13a4
+    - [x] Create placeholder components for `Sidebar.svelte`, `Toolbar.svelte`, `EmailList.svelte`, and `ReadingPane.svelte`.
+    - [x] Assemble these components into a responsive layout using Tailwind CSS 4 within `App.svelte`.
 - [ ] Task: Conductor - User Manual Verification 'Frontend SPA Infrastructure' (Protocol in workflow.md)
 
 ## Phase 3: Frontend Data Integration
