@@ -3,6 +3,7 @@
     import Toolbar from '../../Components/Mail/Toolbar.svelte';
     import EmailList from '../../Components/Mail/EmailList.svelte';
     import ReadingPane from '../../Components/Mail/ReadingPane.svelte';
+    import Composer from '../../Components/Mail/Composer.svelte';
     import { onMount } from 'svelte';
 
     let { user, emails: initialEmails = [] } = $props();
@@ -11,6 +12,7 @@
     let emails = $state(initialEmails);
     let selectedEmailId = $state(null);
     let isModalOpen = $state(false);
+    let isComposeModalOpen = $state(false);
     let isLoading = $state(false);
 
     // Derived selected email object
@@ -67,9 +69,24 @@
         selectedEmailId = null;
     }
 
+    function openCompose() {
+        isComposeModalOpen = true;
+    }
+
+    function closeCompose() {
+        isComposeModalOpen = false;
+    }
+
     // Keyboard Shortcuts
     function handleKeydown(event) {
         if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
+
+        if (isComposeModalOpen) {
+            if (event.key === 'Escape') {
+                closeCompose();
+            }
+            return;
+        }
 
         if (isModalOpen) {
             if (event.key === 'Escape') {
@@ -107,6 +124,8 @@
             }
         } else if (event.key === 'Enter' && selectedEmailId) {
             isModalOpen = true;
+        } else if (event.key === 'c') {
+            openCompose();
         }
     }
 </script>
@@ -114,7 +133,7 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <div class="flex h-screen bg-gray-50 overflow-hidden">
-    <Sidebar {user} bind:activeFolder />
+    <Sidebar {user} bind:activeFolder onCompose={openCompose} />
 
     <div class="flex-1 flex flex-col overflow-hidden">
         <Toolbar {activeFolder} />
@@ -154,4 +173,9 @@
             </div>
         </div>
     </div>
+{/if}
+
+<!-- Compose Modal -->
+{#if isComposeModalOpen}
+    <Composer onClose={closeCompose} />
 {/if}
