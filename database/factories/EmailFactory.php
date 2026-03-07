@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\MailAccount;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,15 +18,18 @@ class EmailFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'imap_uid' => $this->faker->unique()->numberBetween(1, 100000),
+            'account_id' => MailAccount::factory(),
+            'message_id' => $this->faker->uuid() . '@example.com',
+            'uid' => $this->faker->unique()->numberBetween(1, 100000),
             'folder' => 'INBOX',
             'subject' => $this->faker->sentence(),
-            'from' => $this->faker->safeEmail(),
-            'to' => $this->faker->safeEmail(),
-            'date' => $this->faker->dateTimeBetween('-1 month', 'now'),
-            'body' => $this->faker->paragraph(10),
-            'is_read' => $this->faker->boolean(),
+            'from_email' => $this->faker->safeEmail(),
+            'sender_name' => $this->faker->name(),
+            'recipients' => $this->faker->safeEmail(),
+            'sent_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
+            'is_seen' => $this->faker->boolean(),
+            'has_attachments' => $this->faker->boolean(),
+            'thread_id' => $this->faker->uuid(),
         ];
     }
 }

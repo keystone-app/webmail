@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Email;
+use App\Models\MailAccount;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -14,10 +15,11 @@ class EmailApiTest extends TestCase
     public function test_it_returns_paginated_emails_for_authenticated_user(): void
     {
         $user = User::factory()->create();
-        Email::factory()->count(15)->create(['user_id' => $user->id, 'folder' => 'INBOX']);
+        $account = MailAccount::factory()->create(['user_id' => $user->id]);
+        Email::factory()->count(15)->create(['account_id' => $account->id, 'folder' => 'INBOX']);
         
         // Another user's email
-        Email::factory()->create(['user_id' => User::factory()->create()->id]);
+        Email::factory()->create(['account_id' => MailAccount::factory()->create()->id]);
 
         $response = $this->actingAs($user)->getJson('/api/emails?folder=INBOX');
 
@@ -28,9 +30,10 @@ class EmailApiTest extends TestCase
     public function test_it_filters_by_folder(): void
     {
         $user = User::factory()->create();
-        Email::factory()->count(5)->create(['user_id' => $user->id, 'folder' => 'INBOX']);
-        Email::factory()->count(3)->create(['user_id' => $user->id, 'folder' => 'SENT']);
-        Email::factory()->count(2)->create(['user_id' => $user->id, 'folder' => 'enviadas']);
+        $account = MailAccount::factory()->create(['user_id' => $user->id]);
+        Email::factory()->count(5)->create(['account_id' => $account->id, 'folder' => 'INBOX']);
+        Email::factory()->count(3)->create(['account_id' => $account->id, 'folder' => 'SENT']);
+        Email::factory()->count(2)->create(['account_id' => $account->id, 'folder' => 'enviadas']);
 
         $response = $this->actingAs($user)->getJson('/api/emails?folder=SENT');
         $response->assertStatus(200)->assertJsonCount(3, 'data');
@@ -42,7 +45,8 @@ class EmailApiTest extends TestCase
     public function test_it_returns_a_single_email_for_authenticated_user(): void
     {
         $user = User::factory()->create();
-        $email = Email::factory()->create(['user_id' => $user->id]);
+        $account = MailAccount::factory()->create(['user_id' => $user->id]);
+        $email = Email::factory()->create(['account_id' => $account->id]);
 
         $response = $this->actingAs($user)->getJson("/api/emails/{$email->id}");
 
@@ -55,7 +59,8 @@ class EmailApiTest extends TestCase
     {
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
-        $email = Email::factory()->create(['user_id' => $otherUser->id]);
+        $otherAccount = MailAccount::factory()->create(['user_id' => $otherUser->id]);
+        $email = Email::factory()->create(['account_id' => $otherAccount->id]);
 
         $response = $this->actingAs($user)->getJson("/api/emails/{$email->id}");
 

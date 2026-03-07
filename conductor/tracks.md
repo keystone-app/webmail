@@ -7,5 +7,5 @@
 
 ---
 
-- [ ] **Track: Implement Async IMAP Metadata Sync Engine**
+- [~] **Track: Implement Async IMAP Metadata Sync Engine**
 *Link: [./tracks/sync_engine_refactor_20260306/](./tracks/sync_engine_refactor_20260306/)*

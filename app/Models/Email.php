@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Email extends Model
@@ -14,28 +13,23 @@ class Email extends Model
     use HasFactory;
 
     /**
-     * Get the attachments for the email.
-     */
-    public function attachments(): HasMany
-    {
-        return $this->hasMany(Attachment::class);
-    }
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'user_id',
-        'imap_uid',
+        'account_id',
+        'message_id',
+        'uid',
         'folder',
         'subject',
-        'from',
-        'to',
-        'date',
-        'body',
-        'is_read',
+        'from_email',
+        'sender_name',
+        'recipients',
+        'sent_at',
+        'is_seen',
+        'has_attachments',
+        'thread_id',
     ];
 
     /**
@@ -46,16 +40,26 @@ class Email extends Model
     protected function casts(): array
     {
         return [
-            'date' => 'datetime',
-            'is_read' => 'boolean',
+            'sent_at' => 'datetime',
+            'is_seen' => 'boolean',
+            'has_attachments' => 'boolean',
+            'uid' => 'integer',
         ];
     }
 
     /**
-     * Get the user that owns the email.
+     * Get the mail account that owns the email.
      */
-    public function user(): BelongsTo
+    public function account(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(MailAccount::class, 'account_id');
+    }
+
+    /**
+     * Get the attachments for the email.
+     */
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(Attachment::class);
     }
 }
