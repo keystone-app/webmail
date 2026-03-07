@@ -10,7 +10,7 @@
     - [x] Create `App\Services\EncryptionService` to handle logic.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Database & Backend Foundation' (Protocol in workflow.md)
 
-## Phase 2: Backend Authentication Logic
+## Phase 2: Backend Authentication Logic [checkpoint: 7b9872a]
 
 - [x] Task: Implement Login Controller. [c5631a3]
     - [x] Write feature tests for `POST /login` (success with session storage, failure scenarios).
