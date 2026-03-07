@@ -19,4 +19,4 @@ Individual users and small businesses seeking a clean, fast email experience.
 ## Design Goals
 - **Minimalist:** Clean UI with focused layouts.
 - **Mobile First:** Responsive design for all screen sizes.
-- **Fast:** Optimized performance for large inboxes using asynchronous background synchronization.
+- **Fast:** Optimized performance for large inboxes using asynchronous background synchronization and responsive, action-triggered scheduling.
