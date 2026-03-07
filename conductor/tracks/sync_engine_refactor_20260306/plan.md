@@ -1,15 +1,15 @@
 # Implementation Plan: Async IMAP Metadata Sync Engine
 
-## Phase 1: Database & Foundation
+## Phase 1: Database & Foundation [checkpoint: 30f37be]
 
-- [ ] Task: Create `mail_accounts` table and update `emails` schema.
-    - [ ] Create migration for `mail_accounts` (UUID, user_id, imap_uidvalidity, last_sync_at).
-    - [ ] Create migration to update `emails` (account_id, message_id, subject, from_email, is_seen, has_attachments, thread_id).
-    - [ ] Wipe current data: Add a cleanup step to clear the existing `emails` table.
-- [ ] Task: Create `MailAccount` model and update `Email` model.
-    - [ ] Define relationships and UUID traits for `MailAccount`.
-    - [ ] Update `Email` model with new fields and indices.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Database & Foundation' (Protocol in workflow.md)
+- [x] Task: Create `mail_accounts` table and update `emails` schema. [30f37be]
+    - [x] Create migration for `mail_accounts` (UUID, user_id, imap_uidvalidity, last_sync_at).
+    - [x] Create migration to update `emails` (account_id, message_id, subject, from_email, is_seen, has_attachments, thread_id).
+    - [x] Wipe current data: Add a cleanup step to clear the existing `emails` table.
+- [x] Task: Create `MailAccount` model and update `Email` model. [30f37be]
+    - [x] Define relationships and UUID traits for `MailAccount`.
+    - [x] Update `Email` model with new fields and indices.
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Database & Foundation' (Protocol in workflow.md) 30f37be
 
 ## Phase 2: Core Sync Engine (Laravel)
 
