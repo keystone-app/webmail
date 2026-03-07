@@ -4,10 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -15,11 +15,19 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * Get the emails for the user.
+     * Get the mail accounts for the user.
      */
-    public function emails(): HasMany
+    public function mailAccounts(): HasMany
     {
-        return $this->hasMany(Email::class);
+        return $this->hasMany(MailAccount::class);
+    }
+
+    /**
+     * Get the emails for the user via their mail accounts.
+     */
+    public function emails(): HasManyThrough
+    {
+        return $this->hasManyThrough(Email::class, MailAccount::class, 'user_id', 'account_id');
     }
 
     /**

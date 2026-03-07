@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Email;
-use App\Models\User;
+use App\Models\MailAccount;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,32 +13,32 @@ class EmailTest extends TestCase
 
     public function test_an_email_can_be_created(): void
     {
-        $user = User::factory()->create();
+        $account = MailAccount::factory()->create();
 
         $email = Email::create([
-            'user_id' => $user->id,
-            'imap_uid' => 12345,
+            'account_id' => $account->id,
+            'uid' => 12345,
             'folder' => 'INBOX',
             'subject' => 'Test Subject',
-            'from' => 'sender@example.com',
-            'to' => 'recipient@example.com',
-            'date' => now(),
-            'body' => 'Test Body',
-            'is_read' => false,
+            'from_email' => 'sender@example.com',
+            'sender_name' => 'Sender',
+            'recipients' => 'recipient@example.com',
+            'sent_at' => now(),
+            'is_seen' => false,
         ]);
 
         $this->assertDatabaseHas('emails', [
             'id' => $email->id,
-            'imap_uid' => 12345,
+            'uid' => 12345,
         ]);
     }
 
-    public function test_an_email_belongs_to_a_user(): void
+    public function test_an_email_belongs_to_an_account(): void
     {
-        $user = User::factory()->create();
-        $email = Email::factory()->create(['user_id' => $user->id]);
+        $account = MailAccount::factory()->create();
+        $email = Email::factory()->create(['account_id' => $account->id]);
 
-        $this->assertInstanceOf(User::class, $email->user);
-        $this->assertEquals($user->id, $email->user->id);
+        $this->assertInstanceOf(MailAccount::class, $email->account);
+        $this->assertEquals($account->id, $email->account->id);
     }
 }

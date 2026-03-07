@@ -20,7 +20,7 @@ class EmailController extends Controller
 
         $emails = $request->user()->emails()
             ->where('folder', $folder)
-            ->orderBy('date', 'desc')
+            ->orderBy('sent_at', 'desc')
             ->paginate(50);
 
         return EmailResource::collection($emails);
@@ -45,7 +45,8 @@ class EmailController extends Controller
      */
     public function show(Email $email)
     {
-        if ($email->user_id !== Auth::id()) {
+        // Verify ownership through account relationship
+        if ($email->account->user_id !== Auth::id()) {
             abort(403);
         }
 

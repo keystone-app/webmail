@@ -4,10 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
 use Illuminate\Support\Str;
-
-use Illuminate\Support\Facades\Storage;
 
 class EmailResource extends JsonResource
 {
@@ -20,15 +17,18 @@ class EmailResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'imap_uid' => $this->imap_uid,
+            'uid' => $this->uid, // Renamed from imap_uid
+            'account_id' => $this->account_id,
+            'message_id' => $this->message_id,
             'folder' => $this->folder,
             'subject' => $this->subject,
-            'from' => $this->from,
-            'to' => $this->to,
-            'date' => $this->date->toIso8601String(),
-            'body' => $this->when($request->route('email'), $this->body),
-            'body_excerpt' => Str::limit(strip_tags($this->body), 100),
-            'is_read' => $this->is_read,
+            'from_email' => $this->from_email,
+            'sender_name' => $this->sender_name,
+            'recipients' => $this->recipients,
+            'sent_at' => $this->sent_at->toIso8601String(), // Renamed from date
+            'is_seen' => $this->is_seen, // Renamed from is_read
+            'has_attachments' => $this->has_attachments,
+            'thread_id' => $this->thread_id,
             'attachments' => $this->attachments->map(function ($attachment) {
                 return [
                     'id' => $attachment->id,
