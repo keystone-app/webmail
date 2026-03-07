@@ -7,9 +7,9 @@
     - [x] Delete files in `app/Http/Controllers/Api/`.
     - [x] Delete files in `app/Jobs/`.
     - [x] Delete files in `app/Services/`.
-- [~] Task: Revert routes and providers.
-    - [ ] Clean up `routes/web.php` and `routes/api.php` to remove custom endpoints.
-    - [ ] Remove custom providers from `app/Providers/` if any.
+- [x] Task: Revert routes and providers. [6a4b9d7]
+    - [x] Clean up `routes/web.php` and `routes/api.php` to remove custom endpoints.
+    - [x] Remove custom providers from `app/Providers/` if any.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Backend Cleanup' (Protocol in workflow.md)
 
 ## Phase 2: Database & Test Cleanup
