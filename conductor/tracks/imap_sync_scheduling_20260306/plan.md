@@ -2,16 +2,16 @@
 
 ## Phase 1: Core Scheduling Logic
 
-- [ ] Task: Create `SyncSchedulerService`.
-    - [ ] Write unit tests for basic 5-minute periodic scheduling.
-    - [ ] Implement `SyncSchedulerService` with logic for initial, periodic, and immediate syncs.
-- [ ] Task: Implement Sync Cancellation and Reset.
-    - [ ] Write unit tests for cancelling future syncs and resetting timers.
-    - [ ] Update `SyncSchedulerService` to handle `cancelFutureSyncs` and `resetSchedule` methods.
-- [ ] Task: Failure & Retry Handling.
-    - [ ] Write tests for failure scenarios (network timeout, IMAP server down).
-    - [ ] Implement retry logic (30s delay) in `SyncSchedulerService`.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Core Scheduling Logic' (Protocol in workflow.md)
+- [x] Task: Create `SyncSchedulerService`. [a2a4384]
+    - [x] Write unit tests for basic 5-minute periodic scheduling.
+    - [x] Implement `SyncSchedulerService` with logic for initial, periodic, and immediate syncs.
+- [x] Task: Implement Sync Cancellation and Reset. [a2a4384]
+    - [x] Write unit tests for cancelling future syncs and resetting timers.
+    - [x] Update `SyncSchedulerService` to handle `cancelFutureSyncs` and `resetSchedule` methods.
+- [x] Task: Failure & Retry Handling. [a2a4384]
+    - [x] Write tests for failure scenarios (network timeout, IMAP server down).
+    - [x] Implement retry logic (30s delay) in `SyncSchedulerService`.
+- [~] Task: Conductor - User Manual Verification 'Phase 1: Core Scheduling Logic' (Protocol in workflow.md)
 
 ## Phase 2: Integration with User Actions
 
