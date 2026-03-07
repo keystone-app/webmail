@@ -7,5 +7,5 @@
 
 ---
 
-- [~] **Track: Refactor IMAP sync logic to provide a more responsive and efficient user experience with dynamic scheduling and action-triggered syncs.**
+- [x] **Track: Refactor IMAP sync logic to provide a more responsive and efficient user experience with dynamic scheduling and action-triggered syncs.**
 *Link: [./tracks/imap_sync_scheduling_20260306/](./tracks/imap_sync_scheduling_20260306/)*
