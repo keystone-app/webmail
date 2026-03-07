@@ -13,18 +13,18 @@
     - [x] Implement retry logic (30s delay) in `SyncSchedulerService`.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Core Scheduling Logic' (Protocol in workflow.md) f8fd646
 
-## Phase 2: Integration with User Actions
+## Phase 2: Integration with User Actions [checkpoint: 973c05f]
 
-- [ ] Task: Implement Debounce Mechanism.
-    - [ ] Write tests for action-triggered sync with 5s debounce.
-    - [ ] Implement debounce logic for user actions (using Redis or database flags).
-- [ ] Task: Hook User Actions into Scheduler.
-    - [ ] Identify and modify existing controllers/actions to trigger sync.
-    - [ ] Write tests to ensure user actions (Move, Delete, Send) trigger targeted syncs correctly.
-- [ ] Task: Ensure 30s Window Logic.
-    - [ ] Write tests for the "do not cancel if sync is in <30s" rule.
-    - [ ] Refine `SyncSchedulerService` to respect this window.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Integration with User Actions' (Protocol in workflow.md)
+- [x] Task: Implement Debounce Mechanism. [973c05f]
+    - [x] Write tests for action-triggered sync with 5s debounce.
+    - [x] Implement debounce logic for user actions (using Redis or database flags).
+- [x] Task: Hook User Actions into Scheduler. [973c05f]
+    - [x] Identify and modify existing controllers/actions to trigger sync.
+    - [x] Write tests to ensure user actions (Move, Delete, Send) trigger targeted syncs correctly.
+- [x] Task: Ensure 30s Window Logic. [973c05f]
+    - [x] Write tests for the "do not cancel if sync is in <30s" rule.
+    - [x] Refine `SyncSchedulerService` to respect this window.
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Integration with User Actions' (Protocol in workflow.md) 973c05f
 
 ## Phase 3: Final Verification & Performance
 
