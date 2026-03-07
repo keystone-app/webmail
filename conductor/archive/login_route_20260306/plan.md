@@ -1,0 +1,37 @@
+# Implementation Plan: Login Route (DB Auth & Per-User Encryption)
+
+## Phase 1: Database & Backend Foundation [checkpoint: f7910fa]
+
+- [x] Task: Update `users` table schema. [9b8fa7d]
+    - [x] Create a migration to add `encryption_key` column to `users` table.
+    - [x] Update `User` model to include `encryption_key` in fillable attributes.
+- [x] Task: Implement `EncryptionService`. [2a9cad9]
+    - [x] Write unit tests for `EncryptionService` (test encryption/decryption using per-user keys).
+    - [x] Create `App\Services\EncryptionService` to handle logic.
+- [ ] Task: Conductor - User Manual Verification 'Phase 1: Database & Backend Foundation' (Protocol in workflow.md)
+
+## Phase 2: Backend Authentication Logic [checkpoint: 7b9872a]
+
+- [x] Task: Implement Login Controller. [c5631a3]
+    - [x] Write feature tests for `POST /login` (success with session storage, failure scenarios).
+    - [x] Create `Auth\LoginController` with login logic.
+- [x] Task: Define Routes. [c5631a3]
+    - [x] Add `GET /login` and `POST /login` routes to `routes/web.php`.
+    - [x] Add logout route for completeness.
+- [ ] Task: Conductor - User Manual Verification 'Phase 2: Backend Authentication Logic' (Protocol in workflow.md)
+
+## Phase 3: Frontend Login Interface [checkpoint: 76f8e31]
+
+- [x] Task: Create Login Page Component. [e83da63]
+    - [x] Write Vitest tests for `Login.svelte` (form rendering, input handling).
+    - [x] Implement `resources/js/Pages/Auth/Login.svelte` using Svelte 5 and Tailwind CSS 4.
+- [x] Task: Integrate Frontend Routing. [e07614d]
+    - [x] Update `resources/js/app.js` to include the `/login` route using `svelte-routing`.
+- [ ] Task: Conductor - User Manual Verification 'Phase 3: Frontend Login Interface' (Protocol in workflow.md)
+
+## Phase 4: Integration & UX Polish [checkpoint: 72978fe]
+
+- [x] Task: Implement Auth Middleware/Redirects. [e66181b]
+    - [x] Update middleware to redirect unauthenticated users to `/login`.
+    - [x] Write integration test for "Intended Destination" redirect if applicable.
+- [ ] Task: Conductor - User Manual Verification 'Phase 4: Integration & UX Polish' (Protocol in workflow.md)
