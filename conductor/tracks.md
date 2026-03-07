@@ -12,5 +12,5 @@
 
 ---
 
-- [ ] **Track: Do a fresh start. Remove every functionality added except frontend layout/styles/components, any *.md files.**
+- [~] **Track: Do a fresh start. Remove every functionality added except frontend layout/styles/components, any *.md files.**
 *Link: [./tracks/fresh_start_20260306/](./tracks/fresh_start_20260306/)*
