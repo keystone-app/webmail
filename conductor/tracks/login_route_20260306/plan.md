@@ -29,7 +29,7 @@
     - [x] Update `resources/js/app.js` to include the `/login` route using `svelte-routing`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Frontend Login Interface' (Protocol in workflow.md)
 
-## Phase 4: Integration & UX Polish
+## Phase 4: Integration & UX Polish [checkpoint: 72978fe]
 
 - [x] Task: Implement Auth Middleware/Redirects. [e66181b]
     - [x] Update middleware to redirect unauthenticated users to `/login`.
