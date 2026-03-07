@@ -12,12 +12,12 @@
 
 ## Phase 2: Backend Authentication Logic
 
-- [ ] Task: Implement Login Controller.
-    - [ ] Write feature tests for `POST /login` (success with session storage, failure scenarios).
-    - [ ] Create `Auth\LoginController` with login logic.
-- [ ] Task: Define Routes.
-    - [ ] Add `GET /login` and `POST /login` routes to `routes/web.php`.
-    - [ ] Add logout route for completeness.
+- [x] Task: Implement Login Controller. [c5631a3]
+    - [x] Write feature tests for `POST /login` (success with session storage, failure scenarios).
+    - [x] Create `Auth\LoginController` with login logic.
+- [x] Task: Define Routes. [c5631a3]
+    - [x] Add `GET /login` and `POST /login` routes to `routes/web.php`.
+    - [x] Add logout route for completeness.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Backend Authentication Logic' (Protocol in workflow.md)
 
 ## Phase 3: Frontend Login Interface
