@@ -20,7 +20,7 @@
     - [x] Add logout route for completeness.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Backend Authentication Logic' (Protocol in workflow.md)
 
-## Phase 3: Frontend Login Interface
+## Phase 3: Frontend Login Interface [checkpoint: 76f8e31]
 
 - [x] Task: Create Login Page Component. [e83da63]
     - [x] Write Vitest tests for `Login.svelte` (form rendering, input handling).
