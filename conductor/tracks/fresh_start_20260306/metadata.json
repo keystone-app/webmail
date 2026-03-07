@@ -1,0 +1,8 @@
+{
+  "track_id": "fresh_start_20260306",
+  "type": "chore",
+  "status": "new",
+  "created_at": "2026-03-06T17:30:00Z",
+  "updated_at": "2026-03-06T17:30:00Z",
+  "description": "Do a fresh start. Remove every functionality added except frontend layout/styles/components, any *.md files."
+}
