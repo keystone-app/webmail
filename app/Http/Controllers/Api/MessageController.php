@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Draft;
 use App\Mail\MailMessage;
 use App\Jobs\ImapSyncJob;
+use App\Services\SyncSchedulerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -16,6 +17,21 @@ use Carbon\Carbon;
 
 class MessageController extends Controller
 {
+    /**
+     * @var SyncSchedulerService
+     */
+    protected $syncScheduler;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param SyncSchedulerService $syncScheduler
+     */
+    public function __construct(SyncSchedulerService $syncScheduler)
+    {
+        $this->syncScheduler = $syncScheduler;
+    }
+
     /**
      * Send an email message.
      */
@@ -98,7 +114,7 @@ class MessageController extends Controller
 
             // Trigger immediate sync of the Sent folder
             if ($sentFolderName && $password) {
-                ImapSyncJob::dispatch($user, $password, $sentFolderName);
+                $this->syncScheduler->triggerUserActionSync($user, $password, $sentFolderName);
             }
 
             // Delete draft if it exists and belongs to the user

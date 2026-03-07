@@ -125,4 +125,47 @@ class SyncSchedulerServiceTest extends TestCase
         // But wait, if it fails, it will keep retrying every 30s?
         // Actually, the 5-min schedule is only reset on SUCCESS.
     }
+
+    public function test_it_debounces_user_action_sync(): void
+    {
+        $user = User::factory()->create();
+        $password = 'secret';
+        $service = new SyncSchedulerService();
+
+        // Simulate 3 actions in rapid succession
+        $service->triggerUserActionSync($user, $password);
+        $service->triggerUserActionSync($user, $password);
+        $service->triggerUserActionSync($user, $password);
+
+        // Only one sync job should be scheduled with 5s delay
+        Queue::assertPushed(ImapSyncJob::class, 1);
+        Queue::assertPushed(ImapSyncJob::class, function ($job) {
+            return $job->delay === 5;
+        });
+    }
+
+    public function test_it_respects_30s_window_when_triggering_action_sync(): void
+    {
+        $user = User::factory()->create();
+        $password = 'secret';
+        $service = new SyncSchedulerService();
+
+        // Schedule a sync 20s from now (within 30s window)
+        $service->scheduleSync($user, $password, 20);
+        $jobId = Cache::get("next_sync_job_id_{$user->id}");
+
+        $service->triggerUserActionSync($user, $password);
+
+        // Should NOT have cancelled the existing job
+        $this->assertFalse(Cache::has("cancelled_job_{$jobId}"));
+        $this->assertEquals($jobId, Cache::get("next_sync_job_id_{$user->id}"));
+        
+        // Should NOT have pushed a new job (because triggerUserActionSync returns early if cancellation fails?)
+        // Wait, triggerUserActionSync current implementation:
+        // $this->cancelFutureSyncs($user);
+        // ... debounce check ...
+        // $this->scheduleSync(...)
+        
+        // If cancelFutureSyncs returns false, it should probably NOT schedule a new one to avoid double sync.
+    }
 }

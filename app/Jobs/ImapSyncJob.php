@@ -35,8 +35,15 @@ class ImapSyncJob implements ShouldQueue
     public function handle(
         ImapConnectionManager $connectionManager,
         ImapMessageParser $parser,
-        ImapMessageRepository $repository
+        ImapMessageRepository $repository,
+        \App\Services\SyncSchedulerService $scheduler
     ): void {
+        if ($this->syncInstanceId && Cache::has("cancelled_job_{$this->syncInstanceId}")) {
+            Log::info("IMAP sync job {$this->syncInstanceId} was cancelled for user {$this->user->id}");
+            Cache::forget("cancelled_job_{$this->syncInstanceId}");
+            return;
+        }
+
         $maxAttempts = 3;
         $attempt = 0;
 
@@ -44,11 +51,19 @@ class ImapSyncJob implements ShouldQueue
             $attempt++;
             try {
                 $this->performSync($connectionManager, $parser, $repository);
+                
+                // On success, schedule next 5-minute sync
+                $scheduler->scheduleSync($this->user, $this->password, \App\Services\SyncSchedulerService::SYNC_INTERVAL, $this->folder);
+                
                 return; // Success
             } catch (Exception $e) {
                 Log::warning("IMAP sync attempt {$attempt} failed for user {$this->user->id}: " . $e->getMessage());
                 if ($attempt >= $maxAttempts) {
                     Log::error("All {$maxAttempts} IMAP sync attempts failed for user {$this->user->id}.");
+                    
+                    // On total failure, schedule a retry in 30s
+                    $scheduler->scheduleRetry($this->user, $this->password, $this->folder);
+                    
                     throw $e;
                 }
                 // Optional: add a small sleep/backoff here if needed
