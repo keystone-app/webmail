@@ -1,6 +1,6 @@
 # Implementation Plan: IMAP Sync Scheduling
 
-## Phase 1: Core Scheduling Logic
+## Phase 1: Core Scheduling Logic [checkpoint: f8fd646]
 
 - [x] Task: Create `SyncSchedulerService`. [a2a4384]
     - [x] Write unit tests for basic 5-minute periodic scheduling.
@@ -11,7 +11,7 @@
 - [x] Task: Failure & Retry Handling. [a2a4384]
     - [x] Write tests for failure scenarios (network timeout, IMAP server down).
     - [x] Implement retry logic (30s delay) in `SyncSchedulerService`.
-- [~] Task: Conductor - User Manual Verification 'Phase 1: Core Scheduling Logic' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Core Scheduling Logic' (Protocol in workflow.md) f8fd646
 
 ## Phase 2: Integration with User Actions
 
