@@ -31,7 +31,7 @@
 
 ## Phase 4: Integration & UX Polish
 
-- [ ] Task: Implement Auth Middleware/Redirects.
-    - [ ] Update middleware to redirect unauthenticated users to `/login`.
-    - [ ] Write integration test for "Intended Destination" redirect if applicable.
+- [x] Task: Implement Auth Middleware/Redirects. [e66181b]
+    - [x] Update middleware to redirect unauthenticated users to `/login`.
+    - [x] Write integration test for "Intended Destination" redirect if applicable.
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Integration & UX Polish' (Protocol in workflow.md)
