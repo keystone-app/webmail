@@ -25,8 +25,8 @@
 - [x] Task: Create Login Page Component. [e83da63]
     - [x] Write Vitest tests for `Login.svelte` (form rendering, input handling).
     - [x] Implement `resources/js/Pages/Auth/Login.svelte` using Svelte 5 and Tailwind CSS 4.
-- [ ] Task: Integrate Frontend Routing.
-    - [ ] Update `resources/js/app.js` to include the `/login` route using `svelte-routing`.
+- [x] Task: Integrate Frontend Routing. [e07614d]
+    - [x] Update `resources/js/app.js` to include the `/login` route using `svelte-routing`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Frontend Login Interface' (Protocol in workflow.md)
 
 ## Phase 4: Integration & UX Polish
