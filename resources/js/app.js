@@ -13,6 +13,8 @@ if (el) {
     }
 
     let component;
+    
+    // Handle specific routes or server-directed components
     switch (props.component) {
         case 'Login':
             component = Login;
@@ -21,7 +23,12 @@ if (el) {
             component = MailApp;
             break;
         default:
-            console.error('Unknown component:', props.component);
+            // Fallback for direct routing if needed
+            if (window.location.pathname === '/login') {
+                component = Login;
+            } else {
+                component = MailApp;
+            }
     }
 
     if (component) {

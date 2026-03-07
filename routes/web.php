@@ -18,5 +18,12 @@ Route::middleware('auth')->get('/home', function () {
 
 // Frontend routes handled by Svelte (via catch-all or specific)
 Route::get('/login', function () {
-    return view('app'); // SPA entry point
+    return view('app', [
+        'props' => [
+            'component' => 'Login',
+            'csrfToken' => csrf_token(),
+            'errors' => session('errors') ? session('errors')->getBag('default')->getMessages() : [],
+            'old' => session('_old_input', [])
+        ]
+    ]);
 })->name('login');
