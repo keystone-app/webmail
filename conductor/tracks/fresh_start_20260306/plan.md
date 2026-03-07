@@ -19,8 +19,8 @@
     - [x] Keep only the core Laravel migrations.
 - [x] Task: Reset Database. [8ff1c20]
     - [x] Run `./vendor/bin/sail artisan migrate:fresh` to reset the schema.
-- [~] Task: Remove custom tests.
-    - [ ] Delete files in `tests/Unit/` and `tests/Feature/` related to removed logic.
+- [x] Task: Remove custom tests. [f155354]
+    - [x] Delete files in `tests/Unit/` and `tests/Feature/` related to removed logic.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Database & Test Cleanup' (Protocol in workflow.md)
 
 ## Phase 3: Verification & Integrity
