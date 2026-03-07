@@ -14,7 +14,7 @@
 
 ## Phase 2: Database & Test Cleanup
 
-- [ ] Task: Remove custom migrations.
+- [~] Task: Remove custom migrations.
     - [ ] Delete custom migration files in `database/migrations/`.
     - [ ] Keep only the core Laravel migrations.
 - [ ] Task: Reset Database.
