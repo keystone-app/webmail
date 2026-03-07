@@ -1,6 +1,6 @@
 # Implementation Plan: Login Route (DB Auth & Per-User Encryption)
 
-## Phase 1: Database & Backend Foundation
+## Phase 1: Database & Backend Foundation [checkpoint: f7910fa]
 
 - [x] Task: Update `users` table schema. [9b8fa7d]
     - [x] Create a migration to add `encryption_key` column to `users` table.
