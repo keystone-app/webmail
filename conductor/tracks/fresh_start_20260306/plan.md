@@ -12,7 +12,7 @@
     - [x] Remove custom providers from `app/Providers/` if any.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Backend Cleanup' (Protocol in workflow.md) df9d70a
 
-## Phase 2: Database & Test Cleanup
+## Phase 2: Database & Test Cleanup [checkpoint: 9fd74c2]
 
 - [x] Task: Remove custom migrations. [8ff1c20]
     - [x] Delete custom migration files in `database/migrations/`.
@@ -21,7 +21,7 @@
     - [x] Run `./vendor/bin/sail artisan migrate:fresh` to reset the schema.
 - [x] Task: Remove custom tests. [f155354]
     - [x] Delete files in `tests/Unit/` and `tests/Feature/` related to removed logic.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Database & Test Cleanup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Database & Test Cleanup' (Protocol in workflow.md) 9fd74c2
 
 ## Phase 3: Verification & Integrity
 
