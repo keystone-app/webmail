@@ -2,9 +2,9 @@
 
 ## Phase 1: Database & Backend Foundation
 
-- [ ] Task: Update `users` table schema.
-    - [ ] Create a migration to add `encryption_key` column to `users` table.
-    - [ ] Update `User` model to include `encryption_key` in fillable attributes.
+- [x] Task: Update `users` table schema. [9b8fa7d]
+    - [x] Create a migration to add `encryption_key` column to `users` table.
+    - [x] Update `User` model to include `encryption_key` in fillable attributes.
 - [ ] Task: Implement `EncryptionService`.
     - [ ] Write unit tests for `EncryptionService` (test encryption/decryption using per-user keys).
     - [ ] Create `App\Services\EncryptionService` to handle logic.
