@@ -23,10 +23,10 @@
     - [x] Delete files in `tests/Unit/` and `tests/Feature/` related to removed logic.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Database & Test Cleanup' (Protocol in workflow.md) 9fd74c2
 
-## Phase 3: Verification & Integrity
+## Phase 3: Verification & Integrity [checkpoint: 24d62d8]
 
-- [ ] Task: Sanity Check.
-    - [ ] Ensure the application still boots.
-    - [ ] Run `npm run build` to verify frontend assets are unaffected.
-    - [ ] Run remaining tests (if any) to ensure baseline stability.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Verification & Integrity' (Protocol in workflow.md)
+- [x] Task: Sanity Check. [24d62d8]
+    - [x] Ensure the application still boots.
+    - [x] Run `npm run build` to verify frontend assets are unaffected.
+    - [x] Run remaining tests (if any) to ensure baseline stability.
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Verification & Integrity' (Protocol in workflow.md) 24d62d8
