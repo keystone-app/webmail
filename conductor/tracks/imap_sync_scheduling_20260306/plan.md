@@ -26,11 +26,11 @@
     - [x] Refine `SyncSchedulerService` to respect this window.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Integration with User Actions' (Protocol in workflow.md) 973c05f
 
-## Phase 3: Final Verification & Performance
+## Phase 3: Final Verification & Performance [checkpoint: 233de73]
 
-- [ ] Task: End-to-End Sync Testing.
-    - [ ] Run automated test suite to verify full scheduling behavior.
-    - [ ] Verify that Full Sync and Targeted Sync are triggered as expected.
-- [ ] Task: Performance and Resource Audit.
-    - [ ] Check queue load and ensure jobs are not piling up unnecessarily.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Final Verification & Performance' (Protocol in workflow.md)
+- [x] Task: End-to-End Sync Testing. [233de73]
+    - [x] Run automated test suite to verify full scheduling behavior.
+    - [x] Verify that Full Sync and Targeted Sync are triggered as expected.
+- [x] Task: Performance and Resource Audit. [233de73]
+    - [x] Check queue load and ensure jobs are not piling up unnecessarily.
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Final Verification & Performance' (Protocol in workflow.md) 233de73
