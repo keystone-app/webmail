@@ -2,7 +2,7 @@
 
 ## Phase 1: Backend Cleanup
 
-- [ ] Task: Remove custom models and logic.
+- [~] Task: Remove custom models and logic.
     - [ ] Delete files in `app/Models/` (except `User.php`).
     - [ ] Delete files in `app/Http/Controllers/Api/`.
     - [ ] Delete files in `app/Jobs/`.
