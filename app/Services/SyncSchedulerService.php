@@ -13,6 +13,7 @@ class SyncSchedulerService
 {
     public const SYNC_INTERVAL = 300; // 5 minutes
     public const SYNC_WINDOW = 30; // 30 seconds
+    public const DEBOUNCE_TIME = 5; // 5 seconds
 
     /**
      * Schedule initial sync on login.
@@ -108,5 +109,36 @@ class SyncSchedulerService
             ->delay(30);
         
         dispatch($job);
+    }
+
+    /**
+     * Trigger a sync based on user action with debounce.
+     *
+     * @param User $user
+     * @param string $password
+     * @param string $folder
+     * @return void
+     */
+    public function triggerUserActionSync(User $user, string $password, string $folder = 'INBOX'): void
+    {
+        $nextSyncJobId = Cache::get("next_sync_job_id_{$user->id}");
+        
+        if ($nextSyncJobId) {
+            $cancelled = $this->cancelFutureSyncs($user);
+            if (!$cancelled) {
+                // Already have a sync coming up very soon, do nothing
+                return;
+            }
+        }
+
+        // Debounce: check if a sync is already pending in the debounce window
+        $debounceKey = "sync_debounce_{$user->id}";
+        if (Cache::has($debounceKey)) {
+            return;
+        }
+
+        Cache::put($debounceKey, true, self::DEBOUNCE_TIME);
+        
+        $this->scheduleSync($user, $password, self::DEBOUNCE_TIME, $folder);
     }
 }

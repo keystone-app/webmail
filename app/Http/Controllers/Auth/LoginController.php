@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\ImapAuthService;
+use App\Services\SyncSchedulerService;
 use App\Jobs\ImapSyncJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,13 +22,20 @@ class LoginController extends Controller
     protected $imapAuthService;
 
     /**
+     * @var SyncSchedulerService
+     */
+    protected $syncScheduler;
+
+    /**
      * Create a new controller instance.
      *
      * @param ImapAuthService $imapAuthService
+     * @param SyncSchedulerService $syncScheduler
      */
-    public function __construct(ImapAuthService $imapAuthService)
+    public function __construct(ImapAuthService $imapAuthService, SyncSchedulerService $syncScheduler)
     {
         $this->imapAuthService = $imapAuthService;
+        $this->syncScheduler = $syncScheduler;
     }
 
     /**
@@ -76,8 +84,8 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $request->session()->put('imap_password', $credentials['password']);
 
-            // Dispatch IMAP sync job
-            ImapSyncJob::dispatch($user, $credentials['password']);
+            // Schedule initial IMAP sync
+            $this->syncScheduler->scheduleInitialSync($user, $credentials['password']);
 
             return redirect()->intended('/home');
         }
