@@ -25,7 +25,8 @@ class ImapSyncJob implements ShouldQueue
     public function __construct(
         public User $user,
         public string $password,
-        public string $folder = 'INBOX'
+        public string $folder = 'INBOX',
+        public ?string $syncInstanceId = null
     ) {}
 
     /**
