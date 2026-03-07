@@ -4,7 +4,13 @@
     const safeErrors = $derived(errors || {});
     const safeOld = $derived(old || {});
 
-    let email = $state(safeOld.email || '');
+    let email = $state('');
+    
+    $effect(() => {
+        if (safeOld.email) {
+            email = safeOld.email;
+        }
+    });
     let password = $state('');
 </script>
 
