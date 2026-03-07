@@ -2,11 +2,11 @@
 
 ## Phase 1: Backend Cleanup
 
-- [~] Task: Remove custom models and logic.
-    - [ ] Delete files in `app/Models/` (except `User.php`).
-    - [ ] Delete files in `app/Http/Controllers/Api/`.
-    - [ ] Delete files in `app/Jobs/`.
-    - [ ] Delete files in `app/Services/`.
+- [x] Task: Remove custom models and logic. [91c1e72]
+    - [x] Delete files in `app/Models/` (except `User.php`).
+    - [x] Delete files in `app/Http/Controllers/Api/`.
+    - [x] Delete files in `app/Jobs/`.
+    - [x] Delete files in `app/Services/`.
 - [ ] Task: Revert routes and providers.
     - [ ] Clean up `routes/web.php` and `routes/api.php` to remove custom endpoints.
     - [ ] Remove custom providers from `app/Providers/` if any.
